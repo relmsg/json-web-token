@@ -1,0 +1,45 @@
+{
+    "name": "relmsg/json-web-token",
+    "description": "A JSON Web Token (RFC 7519) implementation library",
+    "type": "library",
+    "license": "Apache License 2.0",
+    "homepage": "https://dev.relmsg.ru/json-web-token",
+    "authors": [
+        {
+            "name": "Oleg Kozlov",
+            "email": "h1karo@relmsg.ru",
+            "homepage": "https://relmsg.ru/h1karo",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "ext-json": "*",
+        "ext-sodium": "*",
+        "zendframework/zend-math": "^3.2",
+        "psr/event-dispatcher": "^1.0",
+        "symfony/event-dispatcher": "^4.3",
+        "webmozart/json": "^1.2",
+        "monolog/monolog": "~1.22",
+        "doctrine/collections": "^1.6",
+        "doctrine/annotations": "^1.8"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.3",
+        "symfony/phpunit-bridge": "^4.3"
+    },
+    "suggest": {
+        "ext-redis": "Allow to use redis token storage",
+        "ext-memcache": "Allow to use memcache token storage"
+    },
+    "autoload": {
+        "psr-4": {
+            "RM\\Security\\Jwt\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "RM\\Security\\Jwt\\Tests\\": "tests/"
+        }
+    }
+}
