@@ -17,12 +17,12 @@
 namespace RM\Security\Jwt\Identifier;
 
 /**
- * Class UniqIdIdentifierGenerator provides generation via function { @see uniqid() }.
+ * Class UniqIdGenerator provides generation via function { @see uniqid() }.
  *
  * @package RM\Security\Jwt\Identifier
  * @author  h1karo <h1karo@outlook.com>
  */
-class UniqIdIdentifierGenerator implements IdentifierGeneratorInterface
+class UniqIdGenerator implements IdentifierGeneratorInterface
 {
     public string $prefix = '';
 
