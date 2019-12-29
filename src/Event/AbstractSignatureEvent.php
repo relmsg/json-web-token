@@ -27,10 +27,7 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 abstract class AbstractSignatureEvent extends Event
 {
-    /**
-     * @var SignatureToken
-     */
-    private $token;
+    private SignatureToken $token;
 
     /**
      * AbstractSignatureEvent constructor.

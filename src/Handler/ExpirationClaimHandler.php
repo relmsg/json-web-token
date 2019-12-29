@@ -35,9 +35,9 @@ class ExpirationClaimHandler extends AbstractClaimHandler
      * Duration of token in seconds. By default is 1 hour.
      * For security reason, cannot be infinite.
      *
-     * @var float|int
+     * @var int
      */
-    public $duration = 60 * 60;
+    public int $duration = 60 * 60;
 
     /**
      * {@inheritDoc}

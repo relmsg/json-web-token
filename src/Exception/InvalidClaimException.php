@@ -26,10 +26,7 @@ use Throwable;
  */
 class InvalidClaimException extends InvalidTokenException
 {
-    /**
-     * @var string
-     */
-    private $claim;
+    private string $claim;
 
     public function __construct(string $message, string $claim, Throwable $previous = null)
     {

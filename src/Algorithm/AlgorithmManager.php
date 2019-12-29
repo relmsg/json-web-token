@@ -29,7 +29,7 @@ class AlgorithmManager
     /**
      * @var AlgorithmInterface[]
      */
-    private $algorithms = [];
+    private array $algorithms = [];
 
     /**
      * AlgorithmManager constructor.

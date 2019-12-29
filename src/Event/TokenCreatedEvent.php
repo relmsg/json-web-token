@@ -29,10 +29,7 @@ class TokenCreatedEvent extends Event
 {
     public const NAME = 'jwt.token.created';
 
-    /**
-     * @var TokenInterface
-     */
-    private $token;
+    private TokenInterface $token;
 
     /**
      * TokenCreatedEvent constructor.

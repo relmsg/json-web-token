@@ -27,22 +27,10 @@ use InvalidArgumentException;
  */
 class RedisTokenStorage implements TokenStorageInterface
 {
-    /**
-     * @var string
-     */
-    private $host;
-    /**
-     * @var int
-     */
-    private $port;
-    /**
-     * @var float
-     */
-    private $timeout;
-    /**
-     * @var Redis
-     */
-    private $redis;
+    private string $host;
+    private int    $port;
+    private float  $timeout;
+    private Redis  $redis;
 
     /**
      * RedisTokenStorage constructor.

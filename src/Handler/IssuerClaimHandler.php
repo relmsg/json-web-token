@@ -29,9 +29,11 @@ use RM\Security\Jwt\Token\Payload;
 class IssuerClaimHandler extends AbstractClaimHandler
 {
     /**
-     * @var string name of server who issues token
+     * The identifier of server which issued the token
+     *
+     * @var string
      */
-    public $issuer;
+    public string $issuer;
 
     /**
      * {@inheritDoc}

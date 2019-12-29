@@ -29,7 +29,7 @@ trait LeewayHandlerTrait
      *
      * @var int
      */
-    public $leeway = 0;
+    public int $leeway = 0;
 
     /**
      * Max leeway value.
@@ -37,7 +37,7 @@ trait LeewayHandlerTrait
      *
      * @var int
      */
-    private $maxLeeway = 2 * 60;
+    private int $maxLeeway = 2 * 60;
 
     /**
      * @return int

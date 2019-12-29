@@ -45,26 +45,11 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
  */
 class SignatureService implements SignatureServiceInterface
 {
-    /**
-     * @var AlgorithmManager
-     */
-    private $algorithmManager;
-    /**
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
-    /**
-     * @var TokenHandlerList
-     */
-    private $handlerList;
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
+    private AlgorithmManager $algorithmManager;
+    private ?TokenStorageInterface $tokenStorage;
+    private ?TokenHandlerList $handlerList;
+    private EventDispatcherInterface $eventDispatcher;
+    private LoggerInterface $logger;
 
     /**
      * SignatureService constructor.

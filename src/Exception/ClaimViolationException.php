@@ -28,10 +28,7 @@ use Throwable;
  */
 class ClaimViolationException extends InvalidClaimException
 {
-    /**
-     * @var AbstractClaimHandler
-     */
-    private $claimHandler;
+    private AbstractClaimHandler $claimHandler;
 
     /**
      * ViolationException constructor.

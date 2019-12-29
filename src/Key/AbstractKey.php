@@ -26,7 +26,7 @@ use InvalidArgumentException;
  */
 abstract class AbstractKey implements KeyInterface
 {
-    private $parameters = [];
+    private array $parameters = [];
 
     /**
      * Key constructor.
