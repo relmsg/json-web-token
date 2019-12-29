@@ -18,7 +18,7 @@ namespace RM\Security\Jwt\Handler;
 
 use InvalidArgumentException;
 use RM\Security\Jwt\Exception\IncorrectClaimTypeException;
-use RM\Security\Jwt\Storage\IdentifierGeneratorInterface;
+use RM\Security\Jwt\Identifier\IdentifierGeneratorInterface;
 use RM\Security\Jwt\Storage\TokenStorageInterface;
 use RM\Security\Jwt\Token\Payload;
 
