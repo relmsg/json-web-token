@@ -23,11 +23,11 @@ use RM\Security\Jwt\Storage\TokenStorageInterface;
 use RM\Security\Jwt\Token\Payload;
 
 /**
- * Class IdentifierClaimHandler
+ * Class IdentifierClaimHandler provides processing for { @see Payload::CLAIM_IDENTIFIER } claim.
+ * This handler CAN NOT be used as annotation because he required a DI.
  *
  * @package RM\Security\Jwt\Handler
  * @author  h1karo <h1karo@outlook.com>
- * @Annotation
  */
 class IdentifierClaimHandler extends AbstractClaimHandler
 {
