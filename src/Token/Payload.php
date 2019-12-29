@@ -17,6 +17,7 @@
 namespace RM\Security\Jwt\Token;
 
 use RM\Security\Jwt\Handler\ExpirationClaimHandler;
+use RM\Security\Jwt\Handler\IdentifierClaimHandler;
 use RM\Security\Jwt\Handler\IssuedAtClaimHandler;
 use RM\Security\Jwt\Handler\IssuerClaimHandler;
 use RM\Security\Jwt\Handler\NotBeforeClaimHandler;
@@ -72,5 +73,11 @@ class Payload extends ClaimCollection
      * @see IssuedAtClaimHandler The manager for this claim.
      */
     public const CLAIM_ISSUED_AT = 'iat';
-    public const CLAIM_ID        = 'jti';
+    /**
+     * Token identifier is unique sequence to provide revoke functional.
+     * We recommend to set this claim.
+     *
+     * @see IdentifierClaimHandler The manager for this claim.
+     */
+    public const CLAIM_IDENTIFIER = 'jti';
 }
