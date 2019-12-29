@@ -18,8 +18,8 @@
         "ext-sodium": "*",
         "ext-mbstring": "*",
     
-        "psr/event-dispatcher": "^1.0",
-        "zendframework/zend-math": "^3.2",
+        "psr/event-dispatcher": "^1.0.0",
+        "zendframework/zend-math": "^3.2.0",
         "symfony/event-dispatcher": "^4.4.2",
         "webmozart/json": "^1.2.2",
         "monolog/monolog": "^2.0.2",
@@ -27,8 +27,11 @@
         "doctrine/annotations": "^1.8.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.3",
-        "symfony/phpunit-bridge": "^4.3"
+        "ext-redis": "*",
+        "ext-memcache": "*",
+        
+        "phpunit/phpunit": "^8.5.1",
+        "symfony/phpunit-bridge": "^4.4.2"
     },
     "suggest": {
         "ext-redis": "Allow to use redis token storage",
