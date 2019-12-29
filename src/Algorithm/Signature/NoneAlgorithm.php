@@ -55,6 +55,6 @@ class NoneAlgorithm implements SignatureAlgorithmInterface
      */
     public function verify(KeyInterface $key, string $input, string $hash): bool
     {
-       return $this->hash($key, $input) === $hash;
+        return $this->hash($key, $input) === $hash;
     }
 }

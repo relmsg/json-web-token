@@ -49,9 +49,12 @@ class Header extends ClaimCollection
             throw new InvalidArgumentException(sprintf("Any JSON Web Token must have the algorithm parameter (`%s`).", self::CLAIM_ALGORITHM));
         }
 
-        parent::__construct($parameters, [
-            self::CLAIM_ALGORITHM => null,
-            self::CLAIM_TYPE      => 'JWT'
-        ]);
+        parent::__construct(
+            $parameters,
+            [
+                self::CLAIM_ALGORITHM => null,
+                self::CLAIM_TYPE      => 'JWT'
+            ]
+        );
     }
 }

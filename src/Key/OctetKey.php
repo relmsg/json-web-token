@@ -31,10 +31,12 @@ final class OctetKey extends AbstractKey
      */
     public function __construct(string $value)
     {
-        parent::__construct([
-            self::PARAM_KEY_TYPE  => self::KEY_TYPE_OCTET,
-            self::PARAM_KEY_VALUE => $value
-        ]);
+        parent::__construct(
+            [
+                self::PARAM_KEY_TYPE  => self::KEY_TYPE_OCTET,
+                self::PARAM_KEY_VALUE => $value
+            ]
+        );
     }
 
     /**

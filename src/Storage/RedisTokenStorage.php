@@ -16,8 +16,8 @@
 
 namespace RM\Security\Jwt\Storage;
 
-use Redis;
 use InvalidArgumentException;
+use Redis;
 
 /**
  * Class RedisTokenStorage

@@ -90,7 +90,7 @@ abstract class AbstractClaimHandler implements TokenHandlerInterface
         $value = $target->get($this->getClaim());
 
         try {
-            if($this->validateValue($value) === true) {
+            if ($this->validateValue($value) === true) {
                 return true;
             }
         } catch (ClaimViolationException $e) {
@@ -129,11 +129,14 @@ abstract class AbstractClaimHandler implements TokenHandlerInterface
             return $token->getHeader();
         } elseif ($this->getClaimTarget() === AbstractClaimHandler::PAYLOAD_CLAIM) {
             return $token->getPayload();
-        } else {
-            throw new InvalidArgumentException(sprintf(
-                'The claim target can be only `header` or `payload`. Got %2$s in %1$s.',
-                get_class($this), $this->getClaimTarget()
-            ));
         }
+
+        throw new InvalidArgumentException(
+            sprintf(
+                'The claim target can be only `header` or `payload`. Got %2$s in %1$s.',
+                get_class($this),
+                $this->getClaimTarget()
+            )
+        );
     }
 }

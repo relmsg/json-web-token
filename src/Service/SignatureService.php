@@ -83,16 +83,20 @@ class SignatureService implements SignatureServiceInterface
             throw new InvalidTokenException("This token already signed. If you wants to resign them, set `resign` argument on `true`.");
         }
 
-        $this->logger->info("Token signing started.", [
-            'service' => get_class($this),
-            'token'   => $token
-        ]);
+        $this->logger->info(
+            "Token sign started.",
+            [
+                'service' => get_class($this),
+                'token'   => $token
+            ]
+        );
 
         $algorithm = $this->findAlgorithm($token->getAlgorithm());
 
-        $this->logger->debug("Found algorithm.", [
-            'algorithm' => $algorithm->name()
-        ]);
+        $this->logger->debug(
+            "Found a algorithm to sign.",
+            ['algorithm' => $algorithm->name()]
+        );
 
         $preSignEvent = new TokenPreSignEvent($token);
         $this->eventDispatcher->dispatch($preSignEvent, TokenPreSignEvent::NAME);
@@ -100,24 +104,30 @@ class SignatureService implements SignatureServiceInterface
         $handlerList = $this->findTokenHandlers($token);
         $handlerList->generate($token);
 
-        $this->logger->debug("Generators processed the token.", [
-            'algorithm' => $algorithm->name()
-        ]);
+        $this->logger->debug(
+            "Handlers processed the token.",
+            ['algorithm' => $algorithm->name()]
+        );
 
         $signature = $algorithm->hash($key, $token->toString(true));
         $signedToken = $token->setSignature($signature);
         $signedToken->setSigned(true);
 
-        $this->logger->debug("Signature generated with hash.", [
-            'signature (base64url encoded)' => Base64Url::encode($signature)
-        ]);
+        $this->logger->debug(
+            "Signature generated with hash algorithm.",
+            [
+                'signature (base64url encoded)' => Base64Url::encode($signature),
+                'algorithm' => $algorithm->name()
+            ]
+        );
 
         $signEvent = new TokenSignEvent($signedToken);
         $this->eventDispatcher->dispatch($signEvent, TokenSignEvent::NAME);
 
-        $this->logger->debug("Token signed successful.", [
-            'token' => $signedToken
-        ]);
+        $this->logger->info(
+            "Token sign complete successful.",
+            ['token' => $signedToken]
+        );
 
         return $signedToken;
     }
@@ -145,10 +155,13 @@ class SignatureService implements SignatureServiceInterface
         if ($algorithm === null) {
             throw new InvalidArgumentException(sprintf('Signature algorithm with name `%s` is not found.', $name));
         } elseif (!$algorithm instanceof SignatureAlgorithmInterface) {
-            throw new InvalidArgumentException(sprintf(
-                'Signature algorithm must implement %1$s, given %2$s.',
-                SignatureAlgorithmInterface::class, get_class($algorithm)
-            ));
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Signature algorithm must implement %1$s, given %2$s.',
+                    SignatureAlgorithmInterface::class,
+                    get_class($algorithm)
+                )
+            );
         }
 
         return $algorithm;
@@ -179,7 +192,8 @@ class SignatureService implements SignatureServiceInterface
     {
         $handlerList = clone $this->handlerList;
 
-        if (!empty($annotations = $this->findAnnotations($token, TokenHandlerInterface::class))) {
+        $annotations = $this->findAnnotations($token, TokenHandlerInterface::class);
+        if (!empty($annotations)) {
             foreach ($annotations as $annotation) {
                 $handlerList->add($annotation);
             }
