@@ -17,8 +17,6 @@
 namespace RM\Security\Jwt\Handler;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use RM\Security\Jwt\Exception\ClaimViolationException;
-use RM\Security\Jwt\Exception\InvalidTokenException;
 use RM\Security\Jwt\Token\TokenInterface;
 
 /**
@@ -40,9 +38,7 @@ final class TokenHandlerList extends ArrayCollection implements TokenHandlerInte
     }
 
     /**
-     * Generate new value for current claim
-     *
-     * @param TokenInterface $token
+     * @inheritDoc
      */
     public function generate(TokenInterface $token): void
     {
@@ -53,17 +49,11 @@ final class TokenHandlerList extends ArrayCollection implements TokenHandlerInte
     }
 
     /**
-     * Checks if the passed value is valid.
-     *
-     * @param TokenInterface $token
-     *
-     * @return bool
-     * @throws ClaimViolationException
-     * @throws InvalidTokenException
+     * @inheritDoc
      */
     public function validate(TokenInterface $token): bool
     {
-        /** @var AbstractClaimHandler $handler */
+        /** @var TokenHandlerInterface $handler */
         foreach ($this as $handler) {
             if (!$handler->validate($token)) {
                 return false;

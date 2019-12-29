@@ -87,7 +87,7 @@ class SignatureService implements SignatureServiceInterface
             "Token sign started.",
             [
                 'service' => get_class($this),
-                'token'   => $token
+                'token' => $token
             ]
         );
 
