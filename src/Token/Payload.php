@@ -16,11 +16,9 @@
 
 namespace RM\Security\Jwt\Token;
 
-use RM\Security\Jwt\Generator\ExpirationGenerator;
-use RM\Security\Jwt\Generator\IssuerGenerator;
+use RM\Security\Jwt\Handler\ExpirationClaimHandler;
+use RM\Security\Jwt\Handler\IssuerClaimHandler;
 use RM\Security\Jwt\Storage\TokenStorageInterface;
-use RM\Security\Jwt\Validator\Constraints\ExpirationConstraint;
-use RM\Security\Jwt\Validator\Constraints\IssuerConstraint;
 
 /**
  * Class Payload
@@ -35,7 +33,7 @@ class Payload extends ClaimCollection
      * You can set this claim to check where token generated.
      * It is maybe helps you if you use several servers with own token id { @see Payload::CLAIM_ID } cache server { @see TokenStorageInterface }.
      * We recommend to set this claim.
-     * You can just use { @see IssuerGenerator } and { @see IssuerConstraint } to manage this claim.
+     * You can just use { @see IssuerClaimHandler } to manage this claim.
      */
     public const CLAIM_ISSUER = 'iss';
     /**
@@ -51,9 +49,13 @@ class Payload extends ClaimCollection
     /**
      * Expiration is a time in UNIX format when token expires.
      * It is required claim.
-     * You can just use { @see ExpirationGenerator } and { @see ExpirationConstraint } to manage this claim.
+     * You can just use { @see ExpirationClaimHandler } to manage this claim.
      */
     public const CLAIM_EXPIRATION = 'exp';
+    /**
+     * Not before time is a time in UNIX format before which the token is not valid.
+     *
+     */
     public const CLAIM_NOT_BEFORE = 'nbf';
     public const CLAIM_ISSUED_AT  = 'iat';
     public const CLAIM_ID         = 'jti';

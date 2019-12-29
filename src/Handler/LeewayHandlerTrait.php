@@ -42,7 +42,7 @@ trait LeewayHandlerTrait
     /**
      * @return int
      */
-    protected function getLeeway(): int
+    final protected function getLeeway(): int
     {
         return $this->leeway <= $this->maxLeeway ? $this->leeway : $this->maxLeeway;
     }

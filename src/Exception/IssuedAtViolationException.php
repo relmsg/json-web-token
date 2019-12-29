@@ -16,7 +16,6 @@
 
 namespace RM\Security\Jwt\Exception;
 
-use RM\Security\Jwt\Handler\ExpirationClaimHandler;
 use RM\Security\Jwt\Handler\IssuedAtClaimHandler;
 use Throwable;
 

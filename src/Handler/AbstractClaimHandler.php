@@ -80,11 +80,11 @@ abstract class AbstractClaimHandler implements TokenHandlerInterface
      * @throws ClaimViolationException
      * @throws InvalidTokenException
      */
-    public function validate(TokenInterface $token): bool
+    final public function validate(TokenInterface $token): bool
     {
         $target = $this->resolveTarget($token);
         if (!$target->containsKey($this->getClaim())) {
-            throw new InvalidTokenException(sprintf("This token does not have claim %s.", $this->getClaim()));
+            throw new InvalidTokenException(sprintf('This token does not have claim %s.', $this->getClaim()));
         }
 
         $value = $target->get($this->getClaim());
