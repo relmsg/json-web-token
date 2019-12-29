@@ -25,9 +25,7 @@ namespace RM\Security\Jwt\Algorithm\Signature;
 class Keccak512 extends HMAC
 {
     /**
-     * Returns the name of the algorithm.
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function name(): string
     {
@@ -35,9 +33,7 @@ class Keccak512 extends HMAC
     }
 
     /**
-     * Returns name of HMAC hash algorithm like "sha256"
-     *
-     * @return string
+     * {@inheritDoc}
      */
     protected function getHashAlgorithm(): string
     {

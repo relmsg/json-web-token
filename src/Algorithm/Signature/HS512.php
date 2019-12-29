@@ -28,7 +28,7 @@ use RM\Security\Jwt\Key\KeyInterface;
 class HS512 extends HMAC
 {
     /**
-     * Returns the name of the algorithm.
+     * {@inheritDoc}
      */
     public function name(): string
     {
@@ -36,9 +36,7 @@ class HS512 extends HMAC
     }
 
     /**
-     * Returns name of HMAC hash algorithm like "sha256"
-     *
-     * @return string
+     * {@inheritDoc}
      */
     protected function getHashAlgorithm(): string
     {
