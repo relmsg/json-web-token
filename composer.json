@@ -31,7 +31,8 @@
         "ext-memcache": "*",
         
         "phpunit/phpunit": "^8.5.1",
-        "symfony/phpunit-bridge": "^4.4.2"
+        "symfony/phpunit-bridge": "^4.4.2",
+        "symfony/stopwatch": "^4.4.2"
     },
     "suggest": {
         "ext-redis": "Allow to use redis token storage",
