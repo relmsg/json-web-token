@@ -45,12 +45,12 @@ class RedisTokenStorage implements TokenStorageInterface
         $this->port = $port;
         $this->timeout = $timeout;
 
-        if (class_exists(Redis::class, false)) {
-            $this->redis = new Redis();
-            $this->redis->connect($host, $port, $timeout);
-        } else {
+        if (!class_exists(Redis::class, false)) {
             throw new InvalidArgumentException("Redis class is not found. Maybe you should install redis php extension.");
         }
+
+        $this->redis = new Redis();
+        $this->redis->connect($host, $port, $timeout);
     }
 
     /**

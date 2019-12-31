@@ -42,12 +42,12 @@ class MemcacheTokenStorage implements TokenStorageInterface
         $this->host = $host;
         $this->port = $port;
 
-        if (class_exists(Memcache::class, false)) {
-            $this->memcache = new Memcache();
-            $this->memcache->addServer($host, $port);
-        } else {
+        if (!class_exists(Memcache::class, false)) {
             throw new InvalidArgumentException("Memcache class is not found. Maybe you should install memcache php extension.");
         }
+
+        $this->memcache = new Memcache();
+        $this->memcache->addServer($host, $port);
     }
 
     /**
