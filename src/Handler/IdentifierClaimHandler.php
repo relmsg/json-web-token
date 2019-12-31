@@ -24,10 +24,10 @@ use RM\Security\Jwt\Token\Payload;
 
 /**
  * Class IdentifierClaimHandler provides processing for { @see Payload::CLAIM_IDENTIFIER } claim.
- * This handler CAN NOT be used as annotation because he required a DI.
  *
  * @package RM\Security\Jwt\Handler
  * @author  h1karo <h1karo@outlook.com>
+ * @Annotation
  */
 class IdentifierClaimHandler extends AbstractClaimHandler
 {
@@ -41,6 +41,58 @@ class IdentifierClaimHandler extends AbstractClaimHandler
      * @var int
      */
     public int $duration = 60 * 60;
+
+    public function __construct(array $properties = [])
+    {
+        if (array_key_exists('tokenStorage', $properties)) {
+            $property = $properties['tokenStorage'];
+            $tokenStorage = self::createDependency('tokenStorage', $property);
+
+            if (!$tokenStorage instanceof TokenStorageInterface) {
+                throw self::createMustImplementException('tokenStorage', TokenStorageInterface::class, get_class($tokenStorage));
+            }
+
+            $this->tokenStorage = $tokenStorage;
+        }
+
+        if (array_key_exists('identifierGenerator', $properties)) {
+            $property = $properties['identifierGenerator'];
+            $identifierGenerator = self::createDependency('identifierGenerator', $property);
+
+            if (!$identifierGenerator instanceof IdentifierGeneratorInterface) {
+                throw self::createMustImplementException('identifierGenerator', IdentifierGeneratorInterface::class, get_class($identifierGenerator));
+            }
+
+            $this->identifierGenerator = $identifierGenerator;
+        }
+
+        if (array_key_exists('duration', $properties)) {
+            $this->duration = $properties['duration'];
+        }
+    }
+
+    /**
+     * @param string              $name
+     * @param array|object|string $property
+     *
+     * @return object
+     */
+    protected function createDependency(string $name, $property): object
+    {
+        if (is_object($property)) {
+            return $property;
+        }
+
+        if (is_string($property)) {
+            return self::createDependencyFromString($name, $property);
+        }
+
+        if (is_array($property)) {
+            return self::createDependencyFromArray($name, $property);
+        }
+
+        throw self::createMustImplementException($name, TokenStorageInterface::class, is_object($property) ? get_class($property) : gettype($property));
+    }
 
     /**
      * @inheritDoc
@@ -83,5 +135,53 @@ class IdentifierClaimHandler extends AbstractClaimHandler
         }
 
         return $this->tokenStorage->has($value);
+    }
+
+    /**
+     * @param string $name
+     * @param string $property
+     *
+     * @return object
+     */
+    protected static function createDependencyFromString(string $name, string $property): object
+    {
+        if (!class_exists($property)) {
+            throw new InvalidArgumentException(
+                sprintf('Expects FQCN string with class for %s::%s, got %s.', get_called_class(), $name, $property)
+            );
+        }
+
+        return new $property();
+    }
+
+    /**
+     * @param string $name
+     * @param array  $property
+     *
+     * @return object
+     */
+    protected static function createDependencyFromArray(string $name, array $property): object
+    {
+        if (count($property) !== 1) {
+            throw new InvalidArgumentException(
+                sprintf('Array should have only one value to create dependency for %s::%s.', get_called_class(), $name)
+            );
+        }
+
+        $class = key($property);
+        $arguments = $property[$class];
+        return new $class(...$arguments);
+    }
+
+    /**
+     * @param string $property
+     * @param string $implement
+     * @param string $got
+     *
+     * @return InvalidArgumentException
+     */
+    protected static function createMustImplementException(string $property, string $implement, string $got): InvalidArgumentException
+    {
+        return new InvalidArgumentException(sprintf('%s::%s must be a instance of %s, got %s', get_called_class(), $property, $implement, $got));
     }
 }
