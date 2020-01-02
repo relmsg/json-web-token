@@ -26,7 +26,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class RuntimeTokenStorage implements TokenStorageInterface
 {
-    private $runtime;
+    private ArrayCollection $runtime;
 
     /**
      * RuntimeTokenStorage constructor.

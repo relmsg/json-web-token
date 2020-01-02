@@ -22,7 +22,7 @@ namespace RM\Security\Jwt\Event;
  * @package RM\Security\Jwt\Event
  * @author  h1karo <h1karo@outlook.com>
  */
-class TokenPreSignEvent extends AbstractSignatureEvent
+class TokenPreSignEvent extends AbstractSignEvent
 {
     public const NAME = 'jwt.token.pre_sign';
 }

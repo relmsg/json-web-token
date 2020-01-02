@@ -16,35 +16,33 @@
 
 namespace RM\Security\Jwt\Event;
 
-use RM\Security\Jwt\Token\TokenInterface;
+use RM\Security\Jwt\Token\SignatureToken;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
- * Class TokenCreatedEvent
+ * Class AbstractSignatureEvent
  *
  * @package RM\Security\Jwt\Event
  * @author  h1karo <h1karo@outlook.com>
  */
-class TokenCreatedEvent extends Event
+abstract class AbstractSignEvent extends Event
 {
-    public const NAME = 'jwt.token.created';
-
-    private TokenInterface $token;
+    private SignatureToken $token;
 
     /**
-     * TokenCreatedEvent constructor.
+     * AbstractSignatureEvent constructor.
      *
-     * @param TokenInterface $token
+     * @param SignatureToken $token
      */
-    public function __construct(TokenInterface $token)
+    public function __construct(SignatureToken $token)
     {
         $this->token = $token;
     }
 
     /**
-     * @return TokenInterface
+     * @return SignatureToken
      */
-    public function getToken(): TokenInterface
+    public function getToken(): SignatureToken
     {
         return $this->token;
     }
