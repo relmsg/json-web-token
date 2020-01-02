@@ -34,11 +34,13 @@ class AlgorithmManager
     /**
      * AlgorithmManager constructor.
      *
-     * @param array $algorithms
+     * @param AlgorithmInterface[] $algorithms
      */
     public function __construct(array $algorithms = [])
     {
-        $this->algorithms = $algorithms;
+        foreach ($algorithms as $algorithm) {
+            $this->put($algorithm);
+        }
     }
 
     /**
