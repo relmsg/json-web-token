@@ -12,6 +12,7 @@
 
 namespace RM\Security\Jwt\Tests\Service;
 
+use Laminas\Math\Rand;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
@@ -28,7 +29,6 @@ use RM\Security\Jwt\Service\SignatureService;
 use RM\Security\Jwt\Tests\Token\SignatureToken;
 use RM\Security\Jwt\Token\Header;
 use RM\Security\Jwt\Token\Payload;
-use Zend\Math\Rand;
 
 class SignatureServiceTest extends TestCase
 {

@@ -17,9 +17,8 @@
         "ext-json": "*",
         "ext-sodium": "*",
         "ext-mbstring": "*",
-    
+        
         "psr/event-dispatcher": "^1.0.0",
-        "zendframework/zend-math": "^3.2.0",
         "symfony/event-dispatcher": "^4.4.2",
         "webmozart/json": "^1.2.2",
         "monolog/monolog": "^2.0.2",
@@ -30,10 +29,12 @@
         "ext-redis": "*",
         "ext-memcache": "*",
         
+        "laminas/laminas-math": "^3.2",
+        
         "phpunit/phpunit": "^8.5.1",
         "symfony/phpunit-bridge": "^4.4.2",
         "symfony/stopwatch": "^4.4.2",
-    
+        
         "ramsey/uuid": "^3.9.2"
     },
     "suggest": {
