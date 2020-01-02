@@ -22,6 +22,7 @@ use RM\Security\Jwt\Algorithm\Signature\Keccak256;
 use RM\Security\Jwt\Algorithm\Signature\Keccak512;
 use RM\Security\Jwt\Exception\ClaimViolationException;
 use RM\Security\Jwt\Exception\InvalidTokenException;
+use RM\Security\Jwt\Key\KeyInterface;
 use RM\Security\Jwt\Key\OctetKey;
 use RM\Security\Jwt\Service\SignatureService;
 use RM\Security\Jwt\Tests\Token\SignatureToken;
@@ -31,10 +32,9 @@ use Zend\Math\Rand;
 
 class SignatureServiceTest extends TestCase
 {
-
-    private $service;
-    private $key;
-    private $anotherKey;
+    private SignatureService $service;
+    private KeyInterface $key;
+    private KeyInterface $anotherKey;
 
     protected function setUp(): void
     {
@@ -59,9 +59,11 @@ class SignatureServiceTest extends TestCase
      */
     public function testSign()
     {
-        $token = new SignatureToken([
-            Header::CLAIM_ALGORITHM => (new Keccak512())->name()
-        ]);
+        $token = new SignatureToken(
+            [
+                Header::CLAIM_ALGORITHM => (new Keccak512())->name()
+            ]
+        );
 
         $signedToken = $this->service->sign($token, $this->key);
 
@@ -149,9 +151,11 @@ class SignatureServiceTest extends TestCase
                 $expected = $item[1];
 
                 $result[] = [
-                    new SignatureToken([
-                        Header::CLAIM_ALGORITHM => $algorithm->name()
-                    ], $payload),
+                    new SignatureToken(
+                        [
+                            Header::CLAIM_ALGORITHM => $algorithm->name()
+                        ], $payload
+                    ),
                     $expected
                 ];
             }

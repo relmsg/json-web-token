@@ -13,9 +13,12 @@
 namespace RM\Security\Jwt\Tests\Token;
 
 use RM\Security\Jwt\Handler\ExpirationClaimHandler;
+use RM\Security\Jwt\Handler\IdentifierClaimHandler;
 use RM\Security\Jwt\Handler\IssuedAtClaimHandler;
 use RM\Security\Jwt\Handler\IssuerClaimHandler;
 use RM\Security\Jwt\Handler\NotBeforeClaimHandler;
+use RM\Security\Jwt\Storage\RedisTokenStorage;
+use RM\Security\Jwt\Identifier\RandomUuidGenerator;
 
 /**
  * Class SignatureToken
@@ -26,6 +29,7 @@ use RM\Security\Jwt\Handler\NotBeforeClaimHandler;
  * @ExpirationClaimHandler()
  * @NotBeforeClaimHandler()
  * @IssuedAtClaimHandler()
+ * @IdentifierClaimHandler(tokenStorage={RedisTokenStorage::class: {"127.0.0.1"}}, identifierGenerator=RandomUuidGenerator::class)
  */
 class SignatureToken extends \RM\Security\Jwt\Token\SignatureToken
 {
