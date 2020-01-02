@@ -19,6 +19,8 @@ namespace RM\Security\Jwt\Handler;
 use InvalidArgumentException;
 use RM\Security\Jwt\Exception\IncorrectClaimTypeException;
 use RM\Security\Jwt\Identifier\IdentifierGeneratorInterface;
+use RM\Security\Jwt\Identifier\UniqIdGenerator;
+use RM\Security\Jwt\Storage\RuntimeTokenStorage;
 use RM\Security\Jwt\Storage\TokenStorageInterface;
 use RM\Security\Jwt\Token\Payload;
 
@@ -44,6 +46,7 @@ class IdentifierClaimHandler extends AbstractClaimHandler
 
     public function __construct(array $properties = [])
     {
+        $tokenStorage = new RuntimeTokenStorage();
         if (array_key_exists('tokenStorage', $properties)) {
             $property = $properties['tokenStorage'];
             $tokenStorage = self::createDependency('tokenStorage', $property);
@@ -51,10 +54,11 @@ class IdentifierClaimHandler extends AbstractClaimHandler
             if (!$tokenStorage instanceof TokenStorageInterface) {
                 throw self::createMustImplementException('tokenStorage', TokenStorageInterface::class, get_class($tokenStorage));
             }
-
-            $this->tokenStorage = $tokenStorage;
         }
 
+        $this->tokenStorage = $tokenStorage;
+
+        $identifierGenerator = new UniqIdGenerator();
         if (array_key_exists('identifierGenerator', $properties)) {
             $property = $properties['identifierGenerator'];
             $identifierGenerator = self::createDependency('identifierGenerator', $property);
@@ -62,9 +66,9 @@ class IdentifierClaimHandler extends AbstractClaimHandler
             if (!$identifierGenerator instanceof IdentifierGeneratorInterface) {
                 throw self::createMustImplementException('identifierGenerator', IdentifierGeneratorInterface::class, get_class($identifierGenerator));
             }
-
-            $this->identifierGenerator = $identifierGenerator;
         }
+
+        $this->identifierGenerator = $identifierGenerator;
 
         if (array_key_exists('duration', $properties)) {
             $this->duration = $properties['duration'];
