@@ -15,6 +15,7 @@ namespace RM\Security\Jwt\Tests\Service;
 use Laminas\Math\Rand;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use ParagonIE\ConstantTime\Base64UrlSafe;
 use PHPUnit\Framework\TestCase;
 use RM\Security\Jwt\Algorithm\AlgorithmManager;
 use RM\Security\Jwt\Algorithm\Signature\HS256;
@@ -44,8 +45,8 @@ class SignatureServiceTest extends TestCase
             $algorithmManager->put($algorithm);
         }
 
-        $this->key = new OctetKey(Rand::getString(64));
-        $this->anotherKey = new OctetKey(Rand::getString(64));
+        $this->key = new OctetKey(Base64UrlSafe::encode(Rand::getBytes(64)));
+        $this->anotherKey = new OctetKey(Base64UrlSafe::encode(Rand::getBytes(64)));
 
         $logger = new Logger('signature_service');
         $logFile = $_SERVER['REQUEST_TIME'];

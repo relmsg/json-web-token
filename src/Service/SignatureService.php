@@ -19,6 +19,7 @@ namespace RM\Security\Jwt\Service;
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationReader;
 use InvalidArgumentException;
+use ParagonIE\ConstantTime\Base64UrlSafe;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -34,7 +35,6 @@ use RM\Security\Jwt\Handler\TokenHandlerList;
 use RM\Security\Jwt\Key\KeyInterface;
 use RM\Security\Jwt\Storage\TokenStorageInterface;
 use RM\Security\Jwt\Token\SignatureToken;
-use RM\Security\Jwt\Util\Base64Url;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
@@ -116,7 +116,7 @@ class SignatureService implements SignatureServiceInterface
         $this->logger->debug(
             "Signature generated with hash algorithm.",
             [
-                'signature (base64url encoded)' => Base64Url::encode($signature),
+                'signature (base64url encoded)' => Base64UrlSafe::encode($signature),
                 'algorithm' => $algorithm->name()
             ]
         );

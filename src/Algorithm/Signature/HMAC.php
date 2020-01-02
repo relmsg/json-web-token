@@ -17,8 +17,8 @@
 namespace RM\Security\Jwt\Algorithm\Signature;
 
 use InvalidArgumentException;
+use ParagonIE\ConstantTime\Base64UrlSafe;
 use RM\Security\Jwt\Key\KeyInterface;
-use RM\Security\Jwt\Util\Base64Url;
 
 /**
  * Class HMAC
@@ -73,7 +73,7 @@ abstract class HMAC implements SignatureAlgorithmInterface
             throw new InvalidArgumentException(sprintf("The key parameter '%s' is invalid.", KeyInterface::PARAM_KEY_VALUE));
         }
 
-        return Base64Url::decode($k);
+        return Base64UrlSafe::decode($k);
     }
 
     /**

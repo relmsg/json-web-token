@@ -16,9 +16,9 @@
 
 namespace RM\Security\Jwt\Token;
 
+use ParagonIE\ConstantTime\Base64UrlSafe;
 use RM\Security\Jwt\Algorithm\Signature\SignatureAlgorithmInterface;
 use RM\Security\Jwt\Exception\InvalidTokenException;
-use RM\Security\Jwt\Util\Base64Url;
 use Webmozart\Json\JsonDecoder;
 use Webmozart\Json\JsonEncoder;
 use Webmozart\Json\ValidationFailedException;
@@ -145,11 +145,11 @@ class SignatureToken implements TokenInterface
             $jsonHeader = $encoder->encode($this->getHeader()->toArray());
             $jsonPayload = $encoder->encode($this->getPayload()->toArray());
 
-            $b64Header = Base64Url::encode($jsonHeader);
-            $b64Payload = Base64Url::encode($jsonPayload);
+            $b64Header = Base64UrlSafe::encode($jsonHeader);
+            $b64Payload = Base64UrlSafe::encode($jsonPayload);
 
             if (!$withoutSignature && !empty($this->signature)) {
-                $b64Signature = Base64Url::encode($this->signature);
+                $b64Signature = Base64UrlSafe::encode($this->signature);
                 $parts = [$b64Header, $b64Payload, $b64Signature];
             } else {
                 $parts = [$b64Header, $b64Payload];
@@ -177,16 +177,16 @@ class SignatureToken implements TokenInterface
             $decoder->setObjectDecoding(JsonDecoder::ASSOC_ARRAY);
 
             $b64Header = $parts[0];
-            $jsonHeader = Base64Url::decode($b64Header);
+            $jsonHeader = Base64UrlSafe::decode($b64Header);
             $header = $decoder->decode($jsonHeader);
 
             $b64Payload = $parts[1];
-            $jsonPayload = Base64Url::decode($b64Payload);
+            $jsonPayload = Base64UrlSafe::decode($b64Payload);
             $payload = $decoder->decode($jsonPayload);
 
             if (sizeof($parts) === 3) {
                 $b64Signature = $parts[2];
-                $signature = Base64Url::decode($b64Signature);
+                $signature = Base64UrlSafe::decode($b64Signature);
             }
 
             return new static($header, $payload, $signature ?? null);
