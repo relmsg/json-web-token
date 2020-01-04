@@ -16,9 +16,6 @@
 
 namespace RM\Security\Jwt\Algorithm\Signature;
 
-use InvalidArgumentException;
-use RM\Security\Jwt\Key\KeyInterface;
-
 /**
  * Class HS256
  *
@@ -41,21 +38,5 @@ class HS256 extends HMAC
     protected function getHashAlgorithm(): string
     {
         return "sha256";
-    }
-
-    /**
-     * @param KeyInterface $key
-     *
-     * @return string
-     */
-    protected function getKey(KeyInterface $key): string
-    {
-        $k = parent::getKey($key);
-
-        if (mb_strlen($k, '8bit') < 32) {
-            throw new InvalidArgumentException('Invalid key length.');
-        }
-
-        return $k;
     }
 }

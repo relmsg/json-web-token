@@ -17,7 +17,6 @@
 namespace RM\Security\Jwt\Algorithm\Signature;
 
 use InvalidArgumentException;
-use ParagonIE\ConstantTime\Base64UrlSafe;
 use RM\Security\Jwt\Key\KeyInterface;
 
 /**
@@ -71,6 +70,10 @@ abstract class HMAC implements SignatureAlgorithmInterface
         $k = $key->get(KeyInterface::PARAM_KEY_VALUE);
         if (!is_string($k)) {
             throw new InvalidArgumentException(sprintf("The key parameter '%s' is invalid.", KeyInterface::PARAM_KEY_VALUE));
+        }
+
+        if (mb_strlen($k, '8bit') < 32) {
+            throw new InvalidArgumentException('Invalid key length.');
         }
 
         return $k;
