@@ -73,7 +73,7 @@ abstract class HMAC implements SignatureAlgorithmInterface
             throw new InvalidArgumentException(sprintf("The key parameter '%s' is invalid.", KeyInterface::PARAM_KEY_VALUE));
         }
 
-        return Base64UrlSafe::decode($k);
+        return $k;
     }
 
     /**
