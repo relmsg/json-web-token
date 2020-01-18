@@ -138,7 +138,12 @@ class SignatureService implements SignatureServiceInterface
     final public function verify(SignatureToken $token, KeyInterface $key): bool
     {
         $handlerList = $this->findTokenHandlers($token);
-        return $handlerList->validate($token);
+        if (!$handlerList->validate($token)) {
+            return false;
+        }
+
+        $resignedToken = $this->sign($token, $key, true);
+        return $token->getSignature() === $resignedToken->getSignature();
     }
 
     /**
