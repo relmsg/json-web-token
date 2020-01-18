@@ -191,7 +191,7 @@ class SignatureToken implements TokenInterface
 
             return new static($header, $payload, $signature ?? null);
         } catch (ValidationFailedException $e) {
-            throw new InvalidTokenException("The token data is invalid and cannot be serialized in JSON.", $e);
+            throw new InvalidTokenException("The token is invalid and cannot be parsed from JSON.", $e);
         }
     }
 
