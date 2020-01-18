@@ -35,21 +35,24 @@ class SignatureToken implements TokenInterface
     /**
      * @var Header
      */
-    private $header;
+    private Header $header;
+
     /**
      * @var Payload
      */
-    private $payload;
+    private Payload $payload;
+
     /**
      * Empty signature is a valid signature with { @see NoneAlgorithm }
      *
      * @var string|null
      */
-    private $signature = null;
+    private ?string $signature = null;
+
     /**
      * @var bool
      */
-    private $isSigned = false;
+    private bool $isSigned = false;
 
     /**
      * SignatureToken constructor.

@@ -32,6 +32,7 @@ class Header extends ClaimCollection
      * Algorithm must be set from method { @see AlgorithmInterface::name() } and be in { @see AlgorithmManager }
      */
     public const CLAIM_ALGORITHM = 'alg';
+
     /**
      * Type of token, by default is `JWT`.
      * If you use some token types please override this claim.
@@ -53,7 +54,7 @@ class Header extends ClaimCollection
             $parameters,
             [
                 self::CLAIM_ALGORITHM => null,
-                self::CLAIM_TYPE      => 'JWT'
+                self::CLAIM_TYPE => 'JWT'
             ]
         );
     }
