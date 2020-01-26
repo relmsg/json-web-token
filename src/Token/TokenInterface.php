@@ -16,6 +16,8 @@
 
 namespace RM\Security\Jwt\Token;
 
+use RM\Security\Jwt\Serializer\SerializerInterface;
+
 /**
  * Interface TokenInterface
  *
@@ -25,40 +27,25 @@ namespace RM\Security\Jwt\Token;
 interface TokenInterface
 {
     /**
-     * Delimiter between header, payload and signature parts for compact serialized token
-     *
-     * @see toString()
-     */
-    public const TOKEN_DELIMITER = ".";
-
-    /**
-     * Returns array collection of header parameters
+     * Returns array collection of header parameters.
      *
      * @return Header
      */
     public function getHeader(): Header;
 
     /**
-     * Returns array collection of payload parameters
+     * Returns array collection of payload parameters.
      *
      * @return Payload
      */
     public function getPayload(): Payload;
 
     /**
-     * Returns compact serialized token string
+     * Returns serialized token string.
+     *
+     * @param SerializerInterface $serializer
      *
      * @return string
      */
-    public function toString(): string;
-
-    /**
-     * Returns token object from compact serialized token string.
-     * This method does not validate token.
-     *
-     * @param string $serialized
-     *
-     * @return static
-     */
-    public static function fromString(string $serialized);
+    public function toString(SerializerInterface $serializer): string;
 }

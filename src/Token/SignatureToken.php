@@ -16,12 +16,9 @@
 
 namespace RM\Security\Jwt\Token;
 
-use ParagonIE\ConstantTime\Base64UrlSafe;
 use RM\Security\Jwt\Algorithm\Signature\SignatureAlgorithmInterface;
-use RM\Security\Jwt\Exception\InvalidTokenException;
-use Webmozart\Json\JsonDecoder;
-use Webmozart\Json\JsonEncoder;
-use Webmozart\Json\ValidationFailedException;
+use RM\Security\Jwt\Serializer\SignatureCompactSerializer;
+use RM\Security\Jwt\Serializer\SerializerInterface;
 
 /**
  * Class SignatureToken implements JSON Web Signature standard (RFC 7515)
@@ -43,7 +40,7 @@ class SignatureToken implements TokenInterface
     private Payload $payload;
 
     /**
-     * Empty signature is a valid signature with { @see NoneAlgorithm }
+     * Empty signature is a valid signature with {@see NoneAlgorithm}
      *
      * @var string|null
      */
@@ -69,7 +66,7 @@ class SignatureToken implements TokenInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getHeader(): Header
     {
@@ -93,7 +90,7 @@ class SignatureToken implements TokenInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getPayload(): Payload
     {
@@ -138,72 +135,22 @@ class SignatureToken implements TokenInterface
     }
 
     /**
-     * {@inheritDoc}
-     * @throws InvalidTokenException
+     * @inheritDoc
      */
-    public function toString(bool $withoutSignature = false): string
+    public function toString(SerializerInterface $serializer, bool $withoutSignature = false): string
     {
-        try {
-            $encoder = new JsonEncoder();
-            $jsonHeader = $encoder->encode($this->getHeader()->toArray());
-            $jsonPayload = $encoder->encode($this->getPayload()->toArray());
-
-            $b64Header = Base64UrlSafe::encode($jsonHeader);
-            $b64Payload = Base64UrlSafe::encode($jsonPayload);
-
-            if (!$withoutSignature && !empty($this->signature)) {
-                $b64Signature = Base64UrlSafe::encode($this->signature);
-                $parts = [$b64Header, $b64Payload, $b64Signature];
-            } else {
-                $parts = [$b64Header, $b64Payload];
-            }
-
-            return implode(self::TOKEN_DELIMITER, $parts);
-        } catch (ValidationFailedException $e) {
-            throw new InvalidTokenException("The token data is invalid and cannot be serialized in JSON.", $e);
-        }
+        return $serializer->serialize($this);
     }
 
     /**
-     * {@inheritDoc}
-     * @throws InvalidTokenException
-     */
-    public static function fromString($serialized): SignatureToken
-    {
-        $parts = explode(self::TOKEN_DELIMITER, $serialized);
-        if (sizeof($parts) < 2 || sizeof($parts) > 3) {
-            throw new InvalidTokenException("Token must implement JSON Web Token standard or any related standard.");
-        }
-
-        try {
-            $decoder = new JsonDecoder();
-            $decoder->setObjectDecoding(JsonDecoder::ASSOC_ARRAY);
-
-            $b64Header = $parts[0];
-            $jsonHeader = Base64UrlSafe::decode($b64Header);
-            $header = $decoder->decode($jsonHeader);
-
-            $b64Payload = $parts[1];
-            $jsonPayload = Base64UrlSafe::decode($b64Payload);
-            $payload = $decoder->decode($jsonPayload);
-
-            if (sizeof($parts) === 3) {
-                $b64Signature = $parts[2];
-                $signature = Base64UrlSafe::decode($b64Signature);
-            }
-
-            return new static($header, $payload, $signature ?? null);
-        } catch (ValidationFailedException $e) {
-            throw new InvalidTokenException("The token is invalid and cannot be parsed from JSON.", $e);
-        }
-    }
-
-    /**
+     * Returns compact serialized token.
+     *
      * @return string
-     * @throws InvalidTokenException
+     * @see SignatureCompactSerializer::serialize()
      */
     public function __toString()
     {
-        return $this->toString();
+        $serializer = new SignatureCompactSerializer();
+        return $this->toString($serializer);
     }
 }
