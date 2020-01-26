@@ -16,9 +16,11 @@
 
 namespace RM\Security\Jwt\Token;
 
+use InvalidArgumentException;
 use RM\Security\Jwt\Algorithm\Signature\SignatureAlgorithmInterface;
-use RM\Security\Jwt\Serializer\SignatureCompactSerializer;
 use RM\Security\Jwt\Serializer\SerializerInterface;
+use RM\Security\Jwt\Serializer\SignatureCompactSerializer;
+use RM\Security\Jwt\Serializer\SignatureSerializerInterface;
 
 /**
  * Class SignatureToken implements JSON Web Signature standard (RFC 7515)
@@ -139,7 +141,17 @@ class SignatureToken implements TokenInterface
      */
     public function toString(SerializerInterface $serializer, bool $withoutSignature = false): string
     {
-        return $serializer->serialize($this);
+        if (!$serializer instanceof SignatureSerializerInterface) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    "%s can be serialized only with %s.",
+                    self::class,
+                    SignatureSerializerInterface::class
+                )
+            );
+        }
+
+        return $serializer->serialize($this, $withoutSignature);
     }
 
     /**
