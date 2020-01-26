@@ -16,6 +16,7 @@
 
 namespace RM\Security\Jwt\Serializer;
 
+use InvalidArgumentException;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 use RM\Security\Jwt\Exception\InvalidTokenException;
 use RM\Security\Jwt\Token\SignatureToken;
@@ -31,7 +32,7 @@ use Webmozart\Json\ValidationFailedException;
  * @package RM\Security\Jwt\Serializer
  * @author  h1karo <h1karo@outlook.com>
  */
-class SignatureCompactSerializer implements SerializerInterface
+class SignatureCompactSerializer implements SignatureSerializerInterface
 {
     /**
      * Delimiter between header, payload and signature parts for compact serialized token.
@@ -59,6 +60,17 @@ class SignatureCompactSerializer implements SerializerInterface
      */
     public function serialize(TokenInterface $token, bool $withoutSignature = false): string
     {
+        if (!$token instanceof SignatureToken) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    "%s can serialize only %s, given %s",
+                    self::class,
+                    SignatureToken::class,
+                    get_class($token)
+                )
+            );
+        }
+
         try {
             $jsonHeader = $this->encoder->encode($token->getHeader()->toArray());
             $jsonPayload = $this->encoder->encode($token->getPayload()->toArray());
