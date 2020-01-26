@@ -157,9 +157,7 @@ class SignatureService implements SignatureServiceInterface
     {
         $algorithm = $this->algorithmManager->get($name);
 
-        if ($algorithm === null) {
-            throw new InvalidArgumentException(sprintf('Signature algorithm with name `%s` is not found.', $name));
-        } elseif (!$algorithm instanceof SignatureAlgorithmInterface) {
+        if (!$algorithm instanceof SignatureAlgorithmInterface) {
             throw new InvalidArgumentException(
                 sprintf(
                     'Signature algorithm must implement %1$s, given %2$s.',
