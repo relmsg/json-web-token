@@ -54,7 +54,7 @@ class SignatureServiceTest extends TestCase
         $logger->pushHandler(new StreamHandler("../log/{$logFile}.log"));
         $logger->pushHandler(new PHPConsoleHandler());
 
-        $this->service = new SignatureService($algorithmManager, null, null, null, null, $logger);
+        $this->service = new SignatureService($algorithmManager, null, null, null, $logger);
     }
 
     /**

@@ -31,11 +31,4 @@ interface TokenServiceInterface
      * @return AlgorithmManager
      */
     public function getAlgorithmManager(): AlgorithmManager;
-
-    /**
-     * Returns token storage for token id
-     *
-     * @return TokenStorageInterface
-     */
-    public function getTokenStorage(): ?TokenStorageInterface;
 }

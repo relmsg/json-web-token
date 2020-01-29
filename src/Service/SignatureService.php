@@ -35,7 +35,6 @@ use RM\Security\Jwt\Handler\TokenHandlerList;
 use RM\Security\Jwt\Key\KeyInterface;
 use RM\Security\Jwt\Serializer\SignatureCompactSerializer;
 use RM\Security\Jwt\Serializer\SignatureSerializerInterface;
-use RM\Security\Jwt\Storage\TokenStorageInterface;
 use RM\Security\Jwt\Token\SignatureToken;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
@@ -48,7 +47,6 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 class SignatureService implements SignatureServiceInterface
 {
     private AlgorithmManager $algorithmManager;
-    private ?TokenStorageInterface $tokenStorage;
     private ?TokenHandlerList $handlerList;
     private SignatureSerializerInterface $serializer;
     private EventDispatcherInterface $eventDispatcher;
@@ -58,7 +56,6 @@ class SignatureService implements SignatureServiceInterface
      * SignatureService constructor.
      *
      * @param AlgorithmManager                  $algorithmManager
-     * @param TokenStorageInterface|null        $tokenStorage
      * @param TokenHandlerList|null             $handlerList
      * @param SignatureSerializerInterface|null $serializer
      * @param EventDispatcherInterface|null     $eventDispatcher
@@ -66,14 +63,12 @@ class SignatureService implements SignatureServiceInterface
      */
     public function __construct(
         AlgorithmManager $algorithmManager,
-        TokenStorageInterface $tokenStorage = null,
         TokenHandlerList $handlerList = null,
         SignatureSerializerInterface $serializer = null,
         EventDispatcherInterface $eventDispatcher = null,
         LoggerInterface $logger = null
     ) {
         $this->algorithmManager = $algorithmManager;
-        $this->tokenStorage = $tokenStorage;
         $this->handlerList = $handlerList ?? new TokenHandlerList();
         $this->serializer = $serializer ?? new SignatureCompactSerializer();
         $this->eventDispatcher = $eventDispatcher ?? new EventDispatcher();
@@ -182,14 +177,6 @@ class SignatureService implements SignatureServiceInterface
     public function getAlgorithmManager(): AlgorithmManager
     {
         return $this->algorithmManager;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getTokenStorage(): ?TokenStorageInterface
-    {
-        return $this->tokenStorage;
     }
 
     /**
