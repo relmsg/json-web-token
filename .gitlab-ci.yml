@@ -13,7 +13,7 @@ test:
     before_script:
         - bash ci/docker_install.sh > /dev/null
     script:
-        - php vendor/bin/phpunit --coverage-text --colors=never --configuration phpunit.docker.xml
+        - php vendor/bin/phpunit --configuration phpunit.docker.xml
     only:
         - release
         - merge_requests
