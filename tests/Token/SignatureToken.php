@@ -29,7 +29,7 @@ use RM\Security\Jwt\Identifier\RandomUuidGenerator;
  * @ExpirationClaimHandler()
  * @NotBeforeClaimHandler()
  * @IssuedAtClaimHandler()
- * @IdentifierClaimHandler(tokenStorage={RedisTokenStorage::class: {"127.0.0.1"}}, identifierGenerator=RandomUuidGenerator::class)
+ * @IdentifierClaimHandler(tokenStorage={RedisTokenStorage::class: { REDIS_HOST }}, identifierGenerator=RandomUuidGenerator::class)
  */
 class SignatureToken extends \RM\Security\Jwt\Token\SignatureToken
 {

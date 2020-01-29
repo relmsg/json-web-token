@@ -28,7 +28,9 @@ class RedisTokenStorageTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$storage = new RedisTokenStorage('127.0.0.1');
+        $redisHost = defined('REDIS_HOST') ? REDIS_HOST : '127.0.0.1';
+
+        self::$storage = new RedisTokenStorage($redisHost);
         self::$someTokenId = Rand::getString(256);
     }
 
