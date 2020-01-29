@@ -1,5 +1,8 @@
-# Json Web Token
+# Json Web Token Implementation
 This library implements some standards and is used by others Relations Messenger libraries and services like `relmsg/php-sdk` or API server.
+
+[![pipeline status](https://gitlab.com/relmsg/json-web-token/badges/release/pipeline.svg)](https://gitlab.com/relmsg/json-web-token/commits/release)
+[![coverage report](https://gitlab.com/relmsg/json-web-token/badges/release/coverage.svg)](https://gitlab.com/relmsg/json-web-token/commits/release)
 
 ## Installation
 You will need Composer to install. Run this command:
