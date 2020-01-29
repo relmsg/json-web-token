@@ -52,7 +52,7 @@ class SignatureServiceTest extends TestCase
         $logFile = $_SERVER['REQUEST_TIME'];
         $logger->pushHandler(new StreamHandler("../log/{$logFile}.log"));
 
-        $this->service = new SignatureService($algorithmManager, null, null, null, $logger);
+        $this->service = new SignatureService($algorithmManager, null, null, null, null, $logger);
     }
 
     /**
