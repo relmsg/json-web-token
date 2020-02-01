@@ -16,6 +16,7 @@
 
 namespace RM\Security\Jwt\Serializer;
 
+use RM\Security\Jwt\Token\SignatureToken;
 use RM\Security\Jwt\Token\TokenInterface;
 
 /**
@@ -26,6 +27,11 @@ use RM\Security\Jwt\Token\TokenInterface;
  */
 interface SignatureSerializerInterface extends SerializerInterface
 {
+    /**
+     * @inheritDoc
+     */
+    public function __construct(string $class = SignatureToken::class);
+
     /**
      * Serializes the token in a transfer-safe and short format.
      *

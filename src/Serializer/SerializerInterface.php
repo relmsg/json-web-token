@@ -27,6 +27,13 @@ use RM\Security\Jwt\Token\TokenInterface;
 interface SerializerInterface
 {
     /**
+     * SerializerInterface constructor.
+     *
+     * @param string $class The token class whose serialization is supported by this serializer.
+     */
+    public function __construct(string $class);
+
+    /**
      * Serializes the token in a transfer-safe and short format.
      *
      * @param TokenInterface $token
