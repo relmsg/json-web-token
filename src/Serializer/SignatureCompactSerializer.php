@@ -42,10 +42,18 @@ class SignatureCompactSerializer implements SignatureSerializerInterface
      */
     public const TOKEN_DELIMITER = ".";
 
+    /**
+     * The token class whose serialization is supported by this serializer.
+     *
+     * @var string
+     */
     private string $class;
     private JsonEncoder $encoder;
     private JsonDecoder $decoder;
 
+    /**
+     * @inheritDoc
+     */
     public function __construct(string $class = SignatureToken::class)
     {
         $this->class = $class;
@@ -123,9 +131,7 @@ class SignatureCompactSerializer implements SignatureSerializerInterface
     }
 
     /**
-     * @param TokenInterface|string $token The token object or a token FQCN.
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function supports($token): bool
     {

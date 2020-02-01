@@ -52,7 +52,7 @@ interface SerializerInterface
     public function deserialize(string $serialized): TokenInterface;
 
     /**
-     * Checks that this serializer supports this token format for serialization and deserialization
+     * Checks that this serializer supports this token format for serialization and deserialization.
      *
      * @param TokenInterface|string $token The token object or a token FQCN.
      *

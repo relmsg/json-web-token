@@ -33,12 +33,8 @@ interface SignatureSerializerInterface extends SerializerInterface
     public function __construct(string $class = SignatureToken::class);
 
     /**
-     * Serializes the token in a transfer-safe and short format.
-     *
-     * @param TokenInterface $token
-     * @param bool           $withoutSignature
-     *
-     * @return string
+     * @inheritDoc
+     * @param bool $withoutSignature
      */
     public function serialize(TokenInterface $token, bool $withoutSignature = false): string;
 }
