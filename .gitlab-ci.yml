@@ -19,6 +19,7 @@ test:
             - coverage/clover.xml
             - coverage/report
         expire_in: 1 week
+    tags: [relmsg-docker-runner]
     only:
         - release
         - merge_requests
