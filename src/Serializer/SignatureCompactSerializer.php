@@ -64,7 +64,6 @@ class SignatureCompactSerializer implements SignatureSerializerInterface
 
     /**
      * @inheritDoc
-     * @throws InvalidTokenException
      */
     public function serialize(TokenInterface $token, bool $withoutSignature = false): string
     {
@@ -101,7 +100,6 @@ class SignatureCompactSerializer implements SignatureSerializerInterface
 
     /**
      * @inheritDoc
-     * @throws InvalidTokenException
      */
     public function deserialize(string $serialized): TokenInterface
     {

@@ -16,6 +16,7 @@
 
 namespace RM\Security\Jwt\Serializer;
 
+use RM\Security\Jwt\Exception\InvalidTokenException;
 use RM\Security\Jwt\Token\TokenInterface;
 
 /**
@@ -39,6 +40,7 @@ interface SerializerInterface
      * @param TokenInterface $token
      *
      * @return string
+     * @throws InvalidTokenException
      */
     public function serialize(TokenInterface $token): string;
 
@@ -48,11 +50,12 @@ interface SerializerInterface
      * @param string $serialized
      *
      * @return TokenInterface
+     * @throws InvalidTokenException
      */
     public function deserialize(string $serialized): TokenInterface;
 
     /**
-     * Checks that this serializer supports this token format for serialization and deserialization.
+     * Checks that serializer supports this token class for serialization and deserialization.
      *
      * @param TokenInterface|string $token The token object or a token FQCN.
      *
