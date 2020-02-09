@@ -85,8 +85,8 @@ class SignatureCompactSerializer implements SignatureSerializerInterface
             $b64Header = Base64UrlSafe::encode($jsonHeader);
             $b64Payload = Base64UrlSafe::encode($jsonPayload);
 
-            if (!$withoutSignature && !empty($this->signature)) {
-                $b64Signature = Base64UrlSafe::encode($this->signature);
+            if (!$withoutSignature && !empty($token->getSignature())) {
+                $b64Signature = Base64UrlSafe::encode($token->getSignature());
                 $parts = [$b64Header, $b64Payload, $b64Signature];
             } else {
                 $parts = [$b64Header, $b64Payload];
