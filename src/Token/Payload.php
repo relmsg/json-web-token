@@ -21,7 +21,6 @@ use RM\Security\Jwt\Handler\IdentifierClaimHandler;
 use RM\Security\Jwt\Handler\IssuedAtClaimHandler;
 use RM\Security\Jwt\Handler\IssuerClaimHandler;
 use RM\Security\Jwt\Handler\NotBeforeClaimHandler;
-use RM\Security\Jwt\Service\TokenServiceInterface;
 use RM\Security\Jwt\Storage\TokenStorageInterface;
 
 /**
@@ -44,13 +43,13 @@ class Payload extends ClaimCollection
     /**
      * Subject is a unique identity of application who wants to get access to the audience { @see Payload::CLAIM_AUDIENCE }.
      * It is required claim.
-     * No handler for this claim because { @see TokenServiceInterface } processes it directly.
+     * No handler for this claim because the token service processes it directly.
      */
     public const CLAIM_SUBJECT = 'sub';
     /**
      * Audience is a unique identity of object token provides access to.
      * It is required claim. May have same value as { @see Payload::CLAIM_SUBJECT } claim.
-     * No handler for this claim because { @see TokenServiceInterface } processes it directly.
+     * No handler for this claim because the token service processes it directly.
      */
     public const CLAIM_AUDIENCE = 'aud';
     /**
