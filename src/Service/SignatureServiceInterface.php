@@ -16,6 +16,7 @@
 
 namespace RM\Security\Jwt\Service;
 
+use RM\Security\Jwt\Algorithm\Signature\SignatureAlgorithmInterface;
 use RM\Security\Jwt\Event\TokenPreSignEvent;
 use RM\Security\Jwt\Event\TokenSignEvent;
 use RM\Security\Jwt\Exception\ClaimViolationException;
@@ -29,7 +30,7 @@ use RM\Security\Jwt\Token\SignatureToken;
  * @package RM\Security\Jwt\Service
  * @author  h1karo <h1karo@outlook.com>
  */
-interface SignatureServiceInterface extends TokenServiceInterface
+interface SignatureServiceInterface
 {
     /**
      * Sign token with this key.
@@ -56,4 +57,13 @@ interface SignatureServiceInterface extends TokenServiceInterface
      * @throws InvalidTokenException
      */
     public function verify(SignatureToken $token, KeyInterface $key): bool;
+
+    /**
+     * Returns algorithm by name from algorithm manager.
+     *
+     * @param string $name
+     *
+     * @return SignatureAlgorithmInterface
+     */
+    public function findAlgorithm(string $name): SignatureAlgorithmInterface;
 }
