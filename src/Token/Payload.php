@@ -34,22 +34,22 @@ class Payload extends ClaimCollection
     /**
      * Issuer is a unique identity of token generator server, authentication server or security server.
      * You can set this claim to check where token generated.
-     * It is maybe helps you if you use several servers with own token id { @see Payload::CLAIM_IDENTIFIER } cache server { @see TokenStorageInterface }.
+     * It is maybe helps you if you use several servers with own token id {@see Payload::CLAIM_IDENTIFIER} cache server {@see TokenStorageInterface}.
      * We recommend to set this claim.
      *
      * @see IssuerClaimHandler The manager for this claim.
      */
     public const CLAIM_ISSUER = 'iss';
     /**
-     * Subject is a unique identity of application who wants to get access to the audience { @see Payload::CLAIM_AUDIENCE }.
+     * Subject is a unique identity of application who wants to get access to the audience {@see Payload::CLAIM_AUDIENCE}.
      * It is required claim.
      * No handler for this claim because the token service processes it directly.
      */
     public const CLAIM_SUBJECT = 'sub';
     /**
      * Audience is a unique identity of object token provides access to.
-     * It is required claim. May have same value as { @see Payload::CLAIM_SUBJECT } claim.
-     * No handler for this claim because the token service processes it directly.
+     * It is required claim. May have same value as {@see Payload::CLAIM_SUBJECT} claim.
+     * No handler for this claim because the token service processes it directly. But you can create your own.
      */
     public const CLAIM_AUDIENCE = 'aud';
     /**
@@ -67,7 +67,7 @@ class Payload extends ClaimCollection
     public const CLAIM_NOT_BEFORE = 'nbf';
     /**
      * Issued at time is a time in UNIX format of token creation.
-     * Often a value of this claim equals a value of { @see CLAIM_NOT_BEFORE } claim.
+     * Often a value of this claim equals a value of {@see CLAIM_NOT_BEFORE} claim.
      *
      * @see IssuedAtClaimHandler The manager for this claim.
      */
