@@ -21,6 +21,7 @@ use RM\Security\Jwt\Algorithm\Signature\SignatureAlgorithmInterface;
 use RM\Security\Jwt\Serializer\SerializerInterface;
 use RM\Security\Jwt\Serializer\SignatureCompactSerializer;
 use RM\Security\Jwt\Serializer\SignatureSerializerInterface;
+use RM\Security\Jwt\Service\SignatureServiceInterface;
 
 /**
  * Class SignatureToken implements JSON Web Signature standard (RFC 7515)
@@ -31,35 +32,20 @@ use RM\Security\Jwt\Serializer\SignatureSerializerInterface;
  */
 class SignatureToken implements TokenInterface
 {
-    /**
-     * @var Header
-     */
     private Header $header;
-
-    /**
-     * @var Payload
-     */
     private Payload $payload;
 
     /**
-     * Empty signature is a valid signature with {@see NoneAlgorithm}
+     * Token signature.
+     * Empty signature is a valid signature with {@see NoneAlgorithm}.
      *
      * @var string|null
+     * @see SignatureServiceInterface::sign()
      */
-    private ?string $signature = null;
+    private ?string $signature;
 
-    /**
-     * @var bool
-     */
     private bool $isSigned = false;
 
-    /**
-     * SignatureToken constructor.
-     *
-     * @param array       $header
-     * @param array       $payload
-     * @param string|null $signature
-     */
     public function __construct(array $header = [], array $payload = [], string $signature = null)
     {
         $this->header = new Header($header);
@@ -75,17 +61,11 @@ class SignatureToken implements TokenInterface
         return $this->header;
     }
 
-    /**
-     * @return string
-     */
     public function getAlgorithm(): string
     {
         return $this->header->get(Header::CLAIM_ALGORITHM);
     }
 
-    /**
-     * @param SignatureAlgorithmInterface $algorithm
-     */
     public function setAlgorithm(SignatureAlgorithmInterface $algorithm)
     {
         $this->header->set(Header::CLAIM_ALGORITHM, $algorithm->name());

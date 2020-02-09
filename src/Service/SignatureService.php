@@ -81,7 +81,9 @@ class SignatureService implements SignatureServiceInterface
     final public function sign(SignatureToken $token, KeyInterface $key, bool $resign = false): SignatureToken
     {
         if (!$resign && $token->isSigned()) {
-            throw new InvalidTokenException("This token already signed. If you wants to resign them, set `resign` argument on `true`.");
+            throw new InvalidTokenException(
+                "This token already signed. If you wants to resign them, set `resign` argument on `true`."
+            );
         }
 
         $this->logger->info(
@@ -218,7 +220,7 @@ class SignatureService implements SignatureServiceInterface
             }
 
             return $annotations;
-        } catch (ReflectionException | AnnotationException $e) {
+        } catch (ReflectionException|AnnotationException $e) {
             return null;
         }
     }
