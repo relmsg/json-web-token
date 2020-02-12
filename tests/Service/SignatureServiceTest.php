@@ -13,7 +13,6 @@
 namespace RM\Security\Jwt\Tests\Service;
 
 use Laminas\Math\Rand;
-use Monolog\Handler\PHPConsoleHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use ParagonIE\ConstantTime\Base64UrlSafe;
@@ -52,7 +51,6 @@ class SignatureServiceTest extends TestCase
         $logger = new Logger('signature_service');
         $logFile = $_SERVER['REQUEST_TIME'];
         $logger->pushHandler(new StreamHandler("../log/{$logFile}.log"));
-        $logger->pushHandler(new PHPConsoleHandler());
 
         $this->service = new SignatureService($algorithmManager, null, null, null, $logger);
     }
