@@ -19,7 +19,7 @@
         "ext-mbstring": "*",
         
         "psr/event-dispatcher": "^1.0.0",
-        "symfony/event-dispatcher": "^4.4.2",
+        "symfony/event-dispatcher": "^4.4|^5.0",
         "webmozart/json": "^1.2.2",
         "monolog/monolog": "^2.0.2",
         "doctrine/collections": "^1.6.4",
@@ -32,8 +32,8 @@
         "ext-memcache": "*",
         
         "phpunit/phpunit": "^8.5.1",
-        "symfony/phpunit-bridge": "^4.4.2",
-        "symfony/stopwatch": "^4.4.2",
+        "symfony/phpunit-bridge": "^4.4|^5.0",
+        "symfony/stopwatch": "^4.4|^5.0",
         "php-console/php-console": "^3.1",
         
         "ramsey/uuid": "^3.9.2"
