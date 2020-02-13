@@ -17,6 +17,7 @@
 namespace RM\Security\Jwt\Token;
 
 use InvalidArgumentException;
+use RM\Security\Jwt\Algorithm\AlgorithmInterface;
 use RM\Security\Jwt\Algorithm\Signature\SignatureAlgorithmInterface;
 use RM\Security\Jwt\Serializer\SerializerInterface;
 use RM\Security\Jwt\Serializer\SignatureCompactSerializer;
@@ -144,5 +145,13 @@ class SignatureToken implements TokenInterface
     {
         $serializer = new SignatureCompactSerializer();
         return $this->toString($serializer);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    final public static function createWithAlgorithm(AlgorithmInterface $algorithm): self
+    {
+        return new static([Header::CLAIM_ALGORITHM => $algorithm->name()]);
     }
 }

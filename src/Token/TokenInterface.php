@@ -16,6 +16,7 @@
 
 namespace RM\Security\Jwt\Token;
 
+use RM\Security\Jwt\Algorithm\AlgorithmInterface;
 use RM\Security\Jwt\Serializer\SerializerInterface;
 
 /**
@@ -48,4 +49,13 @@ interface TokenInterface
      * @return string
      */
     public function toString(SerializerInterface $serializer): string;
+
+    /**
+     * Creates token instance with algorithm.
+     *
+     * @param AlgorithmInterface $algorithm
+     *
+     * @return TokenInterface
+     */
+    public static function createWithAlgorithm(AlgorithmInterface $algorithm): self;
 }
