@@ -19,6 +19,7 @@ namespace RM\Security\Jwt\Token;
 use InvalidArgumentException;
 use RM\Security\Jwt\Algorithm\AlgorithmInterface;
 use RM\Security\Jwt\Algorithm\Signature\SignatureAlgorithmInterface;
+use RM\Security\Jwt\Exception\InvalidTokenException;
 use RM\Security\Jwt\Serializer\SerializerInterface;
 use RM\Security\Jwt\Serializer\SignatureCompactSerializer;
 use RM\Security\Jwt\Serializer\SignatureSerializerInterface;
@@ -93,6 +94,8 @@ class SignatureToken implements TokenInterface
     }
 
     /**
+     * Returns current token signature.
+     *
      * @return string|null
      */
     public function getSignature(): ?string
@@ -101,6 +104,8 @@ class SignatureToken implements TokenInterface
     }
 
     /**
+     * Returns new instance of the token with signature.
+     *
      * @param string|null $signature
      *
      * @return SignatureToken
@@ -114,6 +119,8 @@ class SignatureToken implements TokenInterface
     }
 
     /**
+     * Defines that signature successful signed or not.
+     *
      * @return bool
      */
     public function isSigned(): bool
@@ -122,7 +129,13 @@ class SignatureToken implements TokenInterface
     }
 
     /**
+     *
+     * This method used by {@see SignatureServiceInterface}.
+     * We recommend do not use this method in your code.
+     *
      * @param bool $isSigned
+     *
+     * @see SignatureServiceInterface::sign()
      */
     public function setSigned(bool $isSigned): void
     {
@@ -131,6 +144,7 @@ class SignatureToken implements TokenInterface
 
     /**
      * @inheritDoc
+     * @throws InvalidTokenException
      */
     public function toString(SerializerInterface $serializer, bool $withoutSignature = false): string
     {
