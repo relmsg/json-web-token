@@ -70,9 +70,18 @@ class SignatureToken implements TokenInterface
         return $this->header->get(Header::CLAIM_ALGORITHM);
     }
 
-    public function setAlgorithm(SignatureAlgorithmInterface $algorithm)
+    /**
+     * Returns new instance of the token with updated algorithm.
+     *
+     * @param SignatureAlgorithmInterface $algorithm
+     *
+     * @return TokenInterface
+     */
+    public function setAlgorithm(SignatureAlgorithmInterface $algorithm): TokenInterface
     {
-        $this->header->set(Header::CLAIM_ALGORITHM, $algorithm->name());
+        $token = clone $this;
+        $token->header->set(Header::CLAIM_ALGORITHM, $algorithm->name());
+        return $token;
     }
 
     /**
