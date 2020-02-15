@@ -178,7 +178,7 @@ class SignatureToken implements TokenInterface
      */
     public function __toString()
     {
-        $serializer = new SignatureCompactSerializer();
+        $serializer = new SignatureCompactSerializer(self::class);
         return $this->toString($serializer);
     }
 
