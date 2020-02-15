@@ -21,6 +21,8 @@ use ParagonIE\ConstantTime\Base64UrlSafe;
 use RM\Security\Jwt\Exception\InvalidTokenException;
 use RM\Security\Jwt\Token\SignatureToken;
 use RM\Security\Jwt\Token\TokenInterface;
+use Webmozart\Json\DecodingFailedException;
+use Webmozart\Json\EncodingFailedException;
 use Webmozart\Json\JsonDecoder;
 use Webmozart\Json\JsonEncoder;
 use Webmozart\Json\ValidationFailedException;
@@ -93,7 +95,7 @@ class SignatureCompactSerializer implements SignatureSerializerInterface
             }
 
             return implode(self::TOKEN_DELIMITER, $parts);
-        } catch (ValidationFailedException $e) {
+        } catch (ValidationFailedException|EncodingFailedException $e) {
             throw new InvalidTokenException("The token data is invalid and cannot be serialized in JSON.", $e);
         }
     }
@@ -123,7 +125,7 @@ class SignatureCompactSerializer implements SignatureSerializerInterface
             }
 
             return new $this->class($header, $payload, $signature ?? null);
-        } catch (ValidationFailedException $e) {
+        } catch (ValidationFailedException|DecodingFailedException $e) {
             throw new InvalidTokenException("The token is invalid and cannot be parsed from JSON.", $e);
         }
     }
