@@ -52,15 +52,6 @@ class SignatureService implements SignatureServiceInterface
     private EventDispatcherInterface $eventDispatcher;
     private LoggerInterface $logger;
 
-    /**
-     * SignatureService constructor.
-     *
-     * @param AlgorithmManager                  $algorithmManager
-     * @param TokenHandlerList|null             $handlerList
-     * @param SignatureSerializerInterface|null $serializer
-     * @param EventDispatcherInterface|null     $eventDispatcher
-     * @param LoggerInterface|null              $logger
-     */
     public function __construct(
         AlgorithmManager $algorithmManager,
         TokenHandlerList $handlerList = null,
@@ -173,19 +164,11 @@ class SignatureService implements SignatureServiceInterface
         return $algorithm;
     }
 
-    /**
-     * @return AlgorithmManager
-     */
     public function getAlgorithmManager(): AlgorithmManager
     {
         return $this->algorithmManager;
     }
 
-    /**
-     * @param SignatureToken $token
-     *
-     * @return TokenHandlerList
-     */
     protected function findTokenHandlers(SignatureToken $token): TokenHandlerList
     {
         $handlerList = clone $this->handlerList;
@@ -200,13 +183,7 @@ class SignatureService implements SignatureServiceInterface
         return $handlerList;
     }
 
-    /**
-     * @param object $object
-     * @param string $class
-     *
-     * @return array|null
-     */
-    private function findAnnotations(object $object, string $class)
+    private function findAnnotations(object $object, string $class): ?array
     {
         try {
             $annotations = [];
