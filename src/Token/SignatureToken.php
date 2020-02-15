@@ -139,6 +139,15 @@ class SignatureToken implements TokenInterface
     }
 
     /**
+     * On cloning the signature should be removed.
+     */
+    public function __clone()
+    {
+        $this->signature = null;
+        $this->isSigned = false;
+    }
+
+    /**
      * Returns compact serialized token.
      *
      * @return string
