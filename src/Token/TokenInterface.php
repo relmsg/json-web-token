@@ -35,6 +35,13 @@ interface TokenInterface
     public function getHeader(): Header;
 
     /**
+     * Returns algorithm name used in token.
+     *
+     * @return string
+     */
+    public function getAlgorithm(): string;
+
+    /**
      * Returns array collection of payload parameters.
      *
      * @return Payload

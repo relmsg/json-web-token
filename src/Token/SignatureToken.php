@@ -62,6 +62,9 @@ class SignatureToken implements TokenInterface
         return $this->header;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getAlgorithm(): string
     {
         return $this->header->get(Header::CLAIM_ALGORITHM);
