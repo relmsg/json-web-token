@@ -77,34 +77,19 @@ class SignatureService implements SignatureServiceInterface
             );
         }
 
-        $this->logger->info(
-            "Token sign started.",
-            [
-                'service' => get_class($this),
-                'token' => $originalToken
-            ]
-        );
+        $this->logger->info("Token sign started.", ['service' => get_class($this), 'token' => $originalToken]);
 
         $algorithm = $this->findAlgorithm($originalToken->getAlgorithm());
+        $this->logger->debug("Found a algorithm to sign.", ['algorithm' => $algorithm->name()]);
 
-        $this->logger->debug(
-            "Found a algorithm to sign.",
-            ['algorithm' => $algorithm->name()]
-        );
-
-        $preSignEvent = new TokenPreSignEvent($originalToken);
-        $this->eventDispatcher->dispatch($preSignEvent, TokenPreSignEvent::NAME);
+        $this->eventDispatcher->dispatch(new TokenPreSignEvent($originalToken));
 
         // detach token to avoid the claims value changes in original token
         $token = clone $originalToken;
 
         $handlerList = $this->findTokenHandlers($token);
         $handlerList->generate($token);
-
-        $this->logger->debug(
-            "Handlers processed the token.",
-            ['algorithm' => $algorithm->name()]
-        );
+        $this->logger->debug("Handlers processed the token.");
 
         $signature = $algorithm->hash($key, $this->serializer->serialize($token, true));
         $signedToken = $token->setSignature($signature);
@@ -112,18 +97,13 @@ class SignatureService implements SignatureServiceInterface
         $this->logger->debug(
             "Signature generated with hash algorithm.",
             [
-                'signature (base64url encoded)' => Base64UrlSafe::encode($signature),
+                'signature' => Base64UrlSafe::encode($signature),
                 'algorithm' => $algorithm->name()
             ]
         );
 
-        $signEvent = new TokenSignEvent($signedToken);
-        $this->eventDispatcher->dispatch($signEvent, TokenSignEvent::NAME);
-
-        $this->logger->info(
-            "Token sign complete successful.",
-            ['token' => $signedToken]
-        );
+        $this->eventDispatcher->dispatch(new TokenSignEvent($signedToken));
+        $this->logger->info("Token sign complete successful.", ['token' => $signedToken]);
 
         return $signedToken;
     }

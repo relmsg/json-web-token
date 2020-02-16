@@ -24,5 +24,4 @@ namespace RM\Security\Jwt\Event;
  */
 class TokenSignEvent extends AbstractSignEvent
 {
-    public const NAME = 'jwt.token.sign';
 }

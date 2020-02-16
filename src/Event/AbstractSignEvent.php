@@ -29,19 +29,11 @@ abstract class AbstractSignEvent extends Event
 {
     private SignatureToken $token;
 
-    /**
-     * AbstractSignatureEvent constructor.
-     *
-     * @param SignatureToken $token
-     */
     public function __construct(SignatureToken $token)
     {
         $this->token = $token;
     }
 
-    /**
-     * @return SignatureToken
-     */
     public function getToken(): SignatureToken
     {
         return $this->token;
