@@ -26,14 +26,6 @@ use Throwable;
  */
 class IncorrectClaimTypeException extends InvalidClaimException
 {
-    /**
-     * IncorrectClaimTypeException constructor.
-     *
-     * @param string         $expected
-     * @param string         $got
-     * @param string         $claim
-     * @param Throwable|null $previous
-     */
     public function __construct(string $expected, string $got, string $claim, Throwable $previous = null)
     {
         parent::__construct(sprintf("Claim `%s` must be a %s, got %s.", $claim, $expected, $got), $claim, $previous);

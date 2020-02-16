@@ -27,12 +27,6 @@ use Throwable;
  */
 class IssuerViolationException extends ClaimViolationException
 {
-    /**
-     * IssuerViolationException constructor.
-     *
-     * @param IssuerClaimHandler $claimHandler
-     * @param Throwable|null     $previous
-     */
     public function __construct(IssuerClaimHandler $claimHandler, Throwable $previous = null)
     {
         parent::__construct("Token issuer is different from current issuer.", $claimHandler, $previous);

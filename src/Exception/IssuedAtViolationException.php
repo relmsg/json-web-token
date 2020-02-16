@@ -27,12 +27,6 @@ use Throwable;
  */
 class IssuedAtViolationException extends ClaimViolationException
 {
-    /**
-     * ExpirationViolationException constructor.
-     *
-     * @param IssuedAtClaimHandler $claimHandler
-     * @param Throwable|null       $previous
-     */
     public function __construct(IssuedAtClaimHandler $claimHandler, Throwable $previous = null)
     {
         parent::__construct("This token is issued in the future.", $claimHandler, $previous);

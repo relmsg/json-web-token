@@ -34,9 +34,6 @@ class InvalidClaimException extends InvalidTokenException
         $this->claim = $claim;
     }
 
-    /**
-     * @return string
-     */
     public function getClaim(): string
     {
         return $this->claim;

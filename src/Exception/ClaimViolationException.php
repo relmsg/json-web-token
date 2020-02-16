@@ -30,22 +30,12 @@ class ClaimViolationException extends InvalidClaimException
 {
     private AbstractClaimHandler $claimHandler;
 
-    /**
-     * ViolationException constructor.
-     *
-     * @param string               $message
-     * @param AbstractClaimHandler $claimHandler
-     * @param Throwable|null       $previous
-     */
     public function __construct(string $message, AbstractClaimHandler $claimHandler, Throwable $previous = null)
     {
         parent::__construct($message, $claimHandler->getClaim(), $previous);
         $this->claimHandler = $claimHandler;
     }
 
-    /**
-     * @return AbstractClaimHandler
-     */
     public function getClaimHandler(): AbstractClaimHandler
     {
         return $this->claimHandler;

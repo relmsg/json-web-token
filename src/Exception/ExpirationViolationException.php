@@ -27,12 +27,6 @@ use Throwable;
  */
 class ExpirationViolationException extends ClaimViolationException
 {
-    /**
-     * ExpirationViolationException constructor.
-     *
-     * @param ExpirationClaimHandler $claimHandler
-     * @param Throwable|null         $previous
-     */
     public function __construct(ExpirationClaimHandler $claimHandler, Throwable $previous = null)
     {
         parent::__construct("The token expired.", $claimHandler, $previous);
