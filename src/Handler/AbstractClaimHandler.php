@@ -38,7 +38,7 @@ abstract class AbstractClaimHandler implements TokenHandlerInterface
     public function __construct(array $properties = [])
     {
         foreach ($properties as $property => $value) {
-            if (!property_exists(self::class, $property)) {
+            if (!property_exists(static::class, $property)) {
                 throw new InvalidArgumentException(sprintf("Unknown %s property: %s.", self::class, $property));
             }
 
