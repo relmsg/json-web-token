@@ -19,7 +19,6 @@ namespace RM\Security\Jwt\Token;
 use InvalidArgumentException;
 use RM\Security\Jwt\Algorithm\AlgorithmInterface;
 use RM\Security\Jwt\Algorithm\Signature\SignatureAlgorithmInterface;
-use RM\Security\Jwt\Exception\InvalidTokenException;
 use RM\Security\Jwt\Serializer\SerializerInterface;
 use RM\Security\Jwt\Serializer\SignatureCompactSerializer;
 use RM\Security\Jwt\Serializer\SignatureSerializerInterface;
@@ -45,8 +44,6 @@ class SignatureToken implements TokenInterface
      * @see SignatureServiceInterface::sign()
      */
     private ?string $signature;
-
-    private bool $isSigned = false;
 
     final public function __construct(array $header = [], array $payload = [], string $signature = null)
     {
@@ -114,7 +111,6 @@ class SignatureToken implements TokenInterface
     {
         $token = clone $this;
         $token->signature = $signature;
-        $token->isSigned = false;
         return $token;
     }
 
@@ -125,21 +121,7 @@ class SignatureToken implements TokenInterface
      */
     public function isSigned(): bool
     {
-        return $this->isSigned;
-    }
-
-    /**
-     *
-     * This method used by {@see SignatureServiceInterface}.
-     * We recommend do not use this method in your code.
-     *
-     * @param bool $isSigned
-     *
-     * @see SignatureServiceInterface::sign()
-     */
-    public function setSigned(bool $isSigned): void
-    {
-        $this->isSigned = $isSigned;
+        return $this->signature !== null;
     }
 
     /**
@@ -166,7 +148,6 @@ class SignatureToken implements TokenInterface
     public function __clone()
     {
         $this->signature = null;
-        $this->isSigned = false;
     }
 
     /**

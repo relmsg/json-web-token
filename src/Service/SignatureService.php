@@ -105,7 +105,6 @@ class SignatureService implements SignatureServiceInterface
 
         $signature = $algorithm->hash($key, $this->serializer->serialize($token, true));
         $signedToken = $token->setSignature($signature);
-        $signedToken->setSigned(true);
 
         $this->logger->debug(
             "Signature generated with hash algorithm.",
