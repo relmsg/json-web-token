@@ -29,6 +29,7 @@ use RM\Security\Jwt\Algorithm\AlgorithmManager;
 use RM\Security\Jwt\Algorithm\Signature\SignatureAlgorithmInterface;
 use RM\Security\Jwt\Event\TokenPreSignEvent;
 use RM\Security\Jwt\Event\TokenSignEvent;
+use RM\Security\Jwt\Exception\AlgorithmNotFoundException;
 use RM\Security\Jwt\Exception\InvalidTokenException;
 use RM\Security\Jwt\Handler\TokenHandlerInterface;
 use RM\Security\Jwt\Handler\TokenHandlerList;
@@ -128,6 +129,7 @@ class SignatureService implements SignatureServiceInterface
      * @param string $name
      *
      * @return SignatureAlgorithmInterface
+     * @throws AlgorithmNotFoundException
      */
     public function findAlgorithm(string $name): SignatureAlgorithmInterface
     {

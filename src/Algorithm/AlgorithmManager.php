@@ -16,7 +16,7 @@
 
 namespace RM\Security\Jwt\Algorithm;
 
-use InvalidArgumentException;
+use RM\Security\Jwt\Exception\AlgorithmNotFoundException;
 
 /**
  * Class AlgorithmManager
@@ -49,11 +49,12 @@ class AlgorithmManager
      * @param string $algorithm
      *
      * @return AlgorithmInterface
+     * @throws AlgorithmNotFoundException
      */
     public function get(string $algorithm): AlgorithmInterface
     {
         if (!$this->has($algorithm)) {
-            throw new InvalidArgumentException(sprintf("The algorithm with name `%s` is not exists in this service.", $algorithm));
+            throw new AlgorithmNotFoundException($algorithm);
         }
 
         return $this->algorithms[$algorithm];

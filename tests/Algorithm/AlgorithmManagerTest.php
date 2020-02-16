@@ -16,7 +16,6 @@
 
 namespace RM\Security\Jwt\Tests\Algorithm;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use RM\Security\Jwt\Algorithm\AlgorithmInterface;
 use RM\Security\Jwt\Algorithm\AlgorithmManager;
@@ -24,6 +23,7 @@ use RM\Security\Jwt\Algorithm\Signature\HS256;
 use RM\Security\Jwt\Algorithm\Signature\HS512;
 use RM\Security\Jwt\Algorithm\Signature\Keccak256;
 use RM\Security\Jwt\Algorithm\Signature\Keccak512;
+use RM\Security\Jwt\Exception\AlgorithmNotFoundException;
 use stdClass;
 use TypeError;
 
@@ -76,7 +76,7 @@ class AlgorithmManagerTest extends TestCase
 
     public function testInvalidGet()
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(AlgorithmNotFoundException::class);
         $this->manager->get($this->hs256->name());
     }
 
