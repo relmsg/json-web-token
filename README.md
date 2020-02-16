@@ -1,28 +1,141 @@
 # Json Web Token Implementation
-This library implements some standards and is used by others Relations Messenger libraries and services like `relmsg/php-sdk` or API server.
+
+This library implements a series of standards related with JSON Web Token and is used by others Relations Messenger libraries and services like `relmsg/client` and API server.
 
 [![pipeline status](https://gitlab.com/relmsg/json-web-token/badges/release/pipeline.svg)](https://gitlab.com/relmsg/json-web-token/commits/release)
 [![coverage report](https://gitlab.com/relmsg/json-web-token/badges/release/coverage.svg)](https://gitlab.com/relmsg/json-web-token/commits/release)
 
 ## Installation
+
 You will need Composer to install. Run this command:
 
 `composer require relmsg/json-web-token`
+
+## Usage
+
+### Algorithms
+
+All tokens and services uses algorithms to sign, verify, encrypt and decrypt the token data. Each algorithm MUST implement `\RM\Security\Jwt\Algorithm\AlgorithmInterface`.
+
+### Keys
+
+For now we provides only octet key support. This is a just string which used as key in HMAC hash algorithms.
+
+### Tokens
+
+To create new token you can use class `\RM\Security\Jwt\Token\SignatureToken` class. Class constructor have 3 arguments: header claims, payload claims and signature. You should pass algorithm name with header claims. Other arguments and claims is optional.
+
+Example:
+```php
+<?php
+
+use RM\Security\Jwt\Token\Header;
+use RM\Security\Jwt\Token\SignatureToken;
+use RM\Security\Jwt\Algorithm\Signature\Keccak256;
+
+// some algorithm
+$algorithm = new Keccak256();
+
+// first way to create token
+$token = new SignatureToken([Header::CLAIM_ALGORITHM => $algorithm->name()]);
+
+// second way
+$token = SignatureToken::createWithAlgorithm($algorithm);
+```
+
+### Claims
+
+The token has parameters called claim, these are important sensitive data that are needed for authorization and verification. They are divided respectively in the header and in the payload of the token. Header claims are general token data: the signing or encryption algorithm and the type of token. Payload claims contain the data necessary for verification: this is the time of signing the token, the time of its action, who signed it and for whom.
+
+Header claims defined in `\RM\Security\Jwt\Token\Header` class as constants. Payload claim defined in `\RM\Security\Jwt\Token\Payload` class.
+
+You can use your custom claims. According to the standard, claim names must be concise enough. We use 3-character names, but there are no restrictions.
+
+
+### Serialization
+
+Serialization of tokens provided by some services implemented the `\RM\Security\Jwt\Serializer\SerializerInterface` interface.
+
+Example:
+
+```php
+<?php
+
+use RM\Security\Jwt\Serializer\SignatureCompactSerializer;
+use RM\Security\Jwt\Token\SignatureToken;
+
+// serialized token
+// {"alg": "HS256","typ": "JWT"} . {"sub": "1234567890","name": "John Doe","iat": 1516239022} . signature
+$rawToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+
+// in constructor should be passed FQCN of class
+// which object should be created on deserialization
+$serializer = new SignatureCompactSerializer(SignatureToken::class);
+
+// result is a SignatureToken object
+// serializer DO NOT validate token
+$token = $serializer->deserialize($rawToken);
+
+// will return true
+var_dump($rawToken === $token->toString($serializer));
+```
+
+### Signing
+
+To sign the token you should use SignatureService. SignatureService depends on algorithm manager, token handlers, serializer, event dispatcher and logger.
+
+Algorithm manager are a map of supported by service algorithms. If service can not find the algorithm which used in the token, he will throw a exception.
+
+Token handlers are a list of handlers that can generate new claims and validate existing ones.
+
+Serializer is necessary for the service to sign the token, since the signature is the header and the payload signed by the key.
+
+Example:
+
+```php
+<?php
+
+use Laminas\Math\Rand;
+use ParagonIE\ConstantTime\Base64UrlSafe;
+use RM\Security\Jwt\Algorithm\AlgorithmManager;
+use RM\Security\Jwt\Algorithm\Signature\Keccak512;
+use RM\Security\Jwt\Key\OctetKey;
+use RM\Security\Jwt\Service\SignatureService;
+use RM\Security\Jwt\Token\Header;
+use RM\Security\Jwt\Token\SignatureToken;
+
+// some algorithm
+$algorithm = new Keccak512();
+$token = new SignatureToken([Header::CLAIM_ALGORITHM => $algorithm->name()]);
+
+// generate random key for example
+$value = Base64UrlSafe::encode(Rand::getBytes(64));
+$key = new OctetKey($value);
+
+// create algorithm manager and put token algorithm
+$manager = new AlgorithmManager();
+$manager->put($algorithm);
+
+$service = new SignatureService($manager);
+// method returns new token object with signature
+$signedToken = $service->sign($token, $key);
+
+// will return something like eyJhbGciOiJLZWNjYWs1MTIiLCJ0eXAiOiJKV1QifQ.W10.eVGwIbbqljuVK5jm4vuTQ00mq80s2JGmjhnir1dTtLYHDlWERPmpDGJoFi_sETgG7mNl3ThwV1ssC_6QPGe3qQ
+echo $signedToken;
+```
 
 ## Implementation
 This library implements only **the necessary minimum** for the correct operation of the service platform.
 
 ### Implemented
-* JSON Web Token ([RFC 7519](https://tools.ietf.org/html/rfc7519))
-* JSON Web Signature ([RFC 7515](https://tools.ietf.org/html/rfc7515))
-* JSON Web Key ([RFC 7517](https://tools.ietf.org/html/rfc7517))
-* JSON Web Algorithm ([RFC 7518](https://tools.ietf.org/html/rfc7518))
+- [x] JSON Web Token ([RFC 7519](https://tools.ietf.org/html/rfc7519))
+- [x] JSON Web Signature ([RFC 7515](https://tools.ietf.org/html/rfc7515))
+- [ ] JSON Web Encryption ([RFC 7516](https://tools.ietf.org/html/rfc7516))
+- [x] JSON Web Key ([RFC 7517](https://tools.ietf.org/html/rfc7517))
+- [x] JSON Web Algorithm ([RFC 7518](https://tools.ietf.org/html/rfc7518))
 
 ### Will not implemented
 * Nested JSON Web Token
 * Multiple signatures for JWS and JWE
 * JWS JSON Serialization ([RFC 7515](https://tools.ietf.org/html/rfc7515), section 7.2)
 * JWE JSON Serialization ([RFC 7516](https://tools.ietf.org/html/rfc7516), section 7.2)
-
-### Will not be fixed
-* You cannot use same claims in header and payload at the same time.
