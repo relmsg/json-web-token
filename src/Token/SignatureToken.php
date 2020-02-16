@@ -147,6 +147,8 @@ class SignatureToken implements TokenInterface
      */
     public function __clone()
     {
+        $this->header = clone $this->header;
+        $this->payload = clone $this->payload;
         $this->signature = null;
     }
 
