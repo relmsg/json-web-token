@@ -40,7 +40,7 @@ class ExpirationClaimHandler extends AbstractClaimHandler
     public int $duration = 60 * 60;
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getClaim(): string
     {
@@ -48,7 +48,7 @@ class ExpirationClaimHandler extends AbstractClaimHandler
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function generateValue(): int
     {
@@ -56,7 +56,7 @@ class ExpirationClaimHandler extends AbstractClaimHandler
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function validateValue($value): bool
     {

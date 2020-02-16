@@ -32,7 +32,7 @@ class NotBeforeClaimHandler extends AbstractClaimHandler
     use LeewayHandlerTrait;
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getClaim(): string
     {
@@ -40,7 +40,7 @@ class NotBeforeClaimHandler extends AbstractClaimHandler
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function generateValue(): int
     {
@@ -48,7 +48,7 @@ class NotBeforeClaimHandler extends AbstractClaimHandler
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function validateValue($value): bool
     {

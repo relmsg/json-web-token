@@ -27,7 +27,7 @@ use RM\Security\Jwt\Key\KeyInterface;
 class NoneAlgorithm implements SignatureAlgorithmInterface
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function name(): string
     {
@@ -35,7 +35,7 @@ class NoneAlgorithm implements SignatureAlgorithmInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function allowedKeyTypes(): array
     {
@@ -43,7 +43,7 @@ class NoneAlgorithm implements SignatureAlgorithmInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function hash(KeyInterface $key, string $input): string
     {
@@ -51,7 +51,7 @@ class NoneAlgorithm implements SignatureAlgorithmInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function verify(KeyInterface $key, string $input, string $hash): bool
     {

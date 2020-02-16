@@ -36,7 +36,7 @@ class IssuerClaimHandler extends AbstractClaimHandler
     public string $issuer;
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getClaim(): string
     {
@@ -44,7 +44,7 @@ class IssuerClaimHandler extends AbstractClaimHandler
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function generateValue(): string
     {
@@ -52,7 +52,7 @@ class IssuerClaimHandler extends AbstractClaimHandler
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function validateValue($value): bool
     {

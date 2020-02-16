@@ -28,7 +28,7 @@ use RM\Security\Jwt\Key\KeyInterface;
 abstract class HMAC implements SignatureAlgorithmInterface
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     final public function allowedKeyTypes(): array
     {
@@ -36,7 +36,7 @@ abstract class HMAC implements SignatureAlgorithmInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     final public function hash(KeyInterface $key, string $input): string
     {
@@ -45,7 +45,7 @@ abstract class HMAC implements SignatureAlgorithmInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     final public function verify(KeyInterface $key, string $input, string $hash): bool
     {

@@ -64,7 +64,7 @@ abstract class AbstractClaimHandler implements TokenHandlerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     final public function generate(TokenInterface $token): void
     {

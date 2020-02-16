@@ -43,7 +43,7 @@ abstract class AbstractKey implements KeyInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function get(string $parameter): string
     {
@@ -55,7 +55,7 @@ abstract class AbstractKey implements KeyInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function has(string $parameter): bool
     {
@@ -63,7 +63,7 @@ abstract class AbstractKey implements KeyInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function all(): array
     {
@@ -71,7 +71,7 @@ abstract class AbstractKey implements KeyInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function jsonSerialize(): array
     {

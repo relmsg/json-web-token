@@ -67,7 +67,7 @@ class SignatureService implements SignatureServiceInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     final public function sign(SignatureToken $originalToken, KeyInterface $key, bool $resign = false): SignatureToken
     {
@@ -109,7 +109,7 @@ class SignatureService implements SignatureServiceInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     final public function verify(SignatureToken $token, KeyInterface $key): bool
     {

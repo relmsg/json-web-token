@@ -25,7 +25,7 @@ namespace RM\Security\Jwt\Algorithm\Signature;
 class Keccak256 extends HMAC
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function name(): string
     {
@@ -33,7 +33,7 @@ class Keccak256 extends HMAC
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function getHashAlgorithm(): string
     {
