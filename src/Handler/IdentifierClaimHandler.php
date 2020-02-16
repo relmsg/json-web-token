@@ -46,7 +46,9 @@ class IdentifierClaimHandler extends AbstractClaimHandler
 
     public function __construct(array $properties = [])
     {
-        $tokenStorage = new RuntimeTokenStorage();
+        // we will configure these properties ourselves
+        parent::__construct(array_diff_key($properties, array_flip(['tokenStorage', 'identifierGenerator'])));
+
         if (array_key_exists('tokenStorage', $properties)) {
             $property = $properties['tokenStorage'];
             $tokenStorage = self::createDependency('tokenStorage', $property);
@@ -54,11 +56,12 @@ class IdentifierClaimHandler extends AbstractClaimHandler
             if (!$tokenStorage instanceof TokenStorageInterface) {
                 throw self::createMustImplementException('tokenStorage', TokenStorageInterface::class, get_class($tokenStorage));
             }
+
+            $this->tokenStorage = $tokenStorage;
+        } else {
+            $this->tokenStorage = new RuntimeTokenStorage();
         }
 
-        $this->tokenStorage = $tokenStorage;
-
-        $identifierGenerator = new UniqIdGenerator();
         if (array_key_exists('identifierGenerator', $properties)) {
             $property = $properties['identifierGenerator'];
             $identifierGenerator = self::createDependency('identifierGenerator', $property);
@@ -66,12 +69,10 @@ class IdentifierClaimHandler extends AbstractClaimHandler
             if (!$identifierGenerator instanceof IdentifierGeneratorInterface) {
                 throw self::createMustImplementException('identifierGenerator', IdentifierGeneratorInterface::class, get_class($identifierGenerator));
             }
-        }
 
-        $this->identifierGenerator = $identifierGenerator;
-
-        if (array_key_exists('duration', $properties)) {
-            $this->duration = $properties['duration'];
+            $this->identifierGenerator = $identifierGenerator;
+        } else {
+            $this->identifierGenerator = new UniqIdGenerator();
         }
     }
 
