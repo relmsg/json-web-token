@@ -12,156 +12,139 @@
 
 namespace RM\Security\Jwt\Tests\Service;
 
+use BenTools\CartesianProduct\CartesianProduct;
+use Exception;
+use Generator;
 use Laminas\Math\Rand;
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 use PHPUnit\Framework\TestCase;
+use RM\Security\Jwt\Algorithm\AlgorithmInterface;
 use RM\Security\Jwt\Algorithm\AlgorithmManager;
 use RM\Security\Jwt\Algorithm\Signature\HS256;
 use RM\Security\Jwt\Algorithm\Signature\HS512;
 use RM\Security\Jwt\Algorithm\Signature\Keccak256;
-use RM\Security\Jwt\Algorithm\Signature\Keccak512;
-use RM\Security\Jwt\Exception\ClaimViolationException;
+use RM\Security\Jwt\Exception\AlgorithmNotFoundException;
 use RM\Security\Jwt\Exception\InvalidTokenException;
+use RM\Security\Jwt\Handler\ExpirationClaimHandler;
+use RM\Security\Jwt\Handler\IdentifierClaimHandler;
+use RM\Security\Jwt\Handler\IssuedAtClaimHandler;
+use RM\Security\Jwt\Handler\IssuerClaimHandler;
+use RM\Security\Jwt\Handler\NotBeforeClaimHandler;
+use RM\Security\Jwt\Handler\TokenHandlerList;
+use RM\Security\Jwt\Identifier\RandomUuidGenerator;
 use RM\Security\Jwt\Key\KeyInterface;
 use RM\Security\Jwt\Key\OctetKey;
 use RM\Security\Jwt\Service\SignatureService;
-use RM\Security\Jwt\Tests\Token\SignatureToken;
-use RM\Security\Jwt\Token\Header;
+use RM\Security\Jwt\Storage\RedisTokenStorage;
 use RM\Security\Jwt\Token\Payload;
+use RM\Security\Jwt\Token\SignatureToken;
+use RM\Security\Jwt\Token\TokenInterface;
 
 class SignatureServiceTest extends TestCase
 {
-    private SignatureService $service;
-    private KeyInterface $key;
-    private KeyInterface $anotherKey;
-
-    protected function setUp(): void
+    public function testCreation(): SignatureService
     {
-        $algorithmManager = new AlgorithmManager();
+        $algorithmManager = new AlgorithmManager($this->getAlgorithms());
+        $handlerList = $this->createTokenHandlerList();
+        $signatureService = new SignatureService($algorithmManager, $handlerList);
 
-        foreach ($this->getAlgorithms() as $algorithm) {
-            $algorithmManager->put($algorithm);
-        }
+        $this->assertInstanceOf(SignatureService::class, $signatureService);
+        $this->assertInstanceOf(AlgorithmManager::class, $signatureService->getAlgorithmManager());
+        $this->assertEquals($algorithmManager, $signatureService->getAlgorithmManager());
 
-        $this->key = new OctetKey(Base64UrlSafe::encode(Rand::getBytes(64)));
-        $this->anotherKey = new OctetKey(Base64UrlSafe::encode(Rand::getBytes(64)));
-
-        $logger = new Logger('signature_service');
-        $logFile = $_SERVER['REQUEST_TIME'];
-        $logger->pushHandler(new StreamHandler("../log/{$logFile}.log"));
-
-        $this->service = new SignatureService($algorithmManager, null, null, null, $logger);
+        return $signatureService;
     }
 
-    /**
-     * @throws InvalidTokenException
-     */
-    public function testSign()
+    public function createTokenHandlerList(): TokenHandlerList
     {
-        $token = new SignatureToken(
+        if (!defined('REDIS_HOST')) {
+            throw new Exception('No redis host constant.');
+        }
+
+        $issuerClaimHandler = new IssuerClaimHandler();
+        $issuerClaimHandler->issuer = 'test';
+
+        $identifierClaimHandler = new IdentifierClaimHandler();
+        $identifierClaimHandler->tokenStorage = new RedisTokenStorage(REDIS_HOST);
+        $identifierClaimHandler->identifierGenerator = new RandomUuidGenerator();
+
+        return new TokenHandlerList(
             [
-                Header::CLAIM_ALGORITHM => (new Keccak512())->name()
+                $issuerClaimHandler,
+                new ExpirationClaimHandler(),
+                new NotBeforeClaimHandler(),
+                new IssuedAtClaimHandler(),
+                $identifierClaimHandler
             ]
         );
-
-        $signedToken = $this->service->sign($token, $this->key);
-
-        $this->assertEquals(true, $signedToken->isSigned());
-        $this->assertEquals(false, $token->isSigned());
-    }
-
-    public function testFindAlgorithm()
-    {
-        $keccak512 = new Keccak512();
-        $this->assertEquals($keccak512, $this->service->findAlgorithm($keccak512->name()));
     }
 
     /**
-     * @param SignatureToken $token
-     * @param bool           $expected
+     * @depends      testCreation
+     * @dataProvider provideKeyAndAlgorithm
      *
+     * @param AlgorithmInterface $algorithm
+     * @param KeyInterface       $key
+     * @param SignatureService   $service
+     *
+     * @return TokenInterface
      * @throws InvalidTokenException
-     * @dataProvider getVerifyProvider
      */
-    public function testVerify(SignatureToken $token, bool $expected)
-    {
-        $signedToken = $this->service->sign($token, $this->key);
+    public function testSign(
+        AlgorithmInterface $algorithm,
+        KeyInterface $key,
+        SignatureService $service
+    ): TokenInterface {
+        $token = SignatureToken::createWithAlgorithm($algorithm);
 
-        $this->assertEquals(true, $signedToken->isSigned());
-        $this->assertEquals(false, $token->isSigned());
+        $signedToken = $service->sign($token, $key);
+        $this->assertInstanceOf(TokenInterface::class, $signedToken);
+        $this->assertTrue($signedToken->isSigned());
+        $this->assertFalse($token->isSigned());
 
-        if (!$expected) {
-            $this->expectException(ClaimViolationException::class);
-        }
+        $this->assertTrue($signedToken->getPayload()->containsKey(Payload::CLAIM_ISSUER));
+        $this->assertEquals('test', $signedToken->getPayload()->get(Payload::CLAIM_ISSUER));
+        $this->assertTrue($signedToken->getPayload()->containsKey(Payload::CLAIM_EXPIRATION));
+        $this->assertTrue($signedToken->getPayload()->containsKey(Payload::CLAIM_ISSUED_AT));
+        $this->assertTrue($signedToken->getPayload()->containsKey(Payload::CLAIM_NOT_BEFORE));
+        $this->assertTrue($signedToken->getPayload()->containsKey(Payload::CLAIM_IDENTIFIER));
 
-        $actual = $this->service->verify($signedToken, $this->key);
-        $this->assertEquals($expected, $actual);
+        $this->assertFalse($token->getPayload()->containsKey(Payload::CLAIM_ISSUER));
+        $this->assertFalse($token->getPayload()->containsKey(Payload::CLAIM_EXPIRATION));
+        $this->assertFalse($token->getPayload()->containsKey(Payload::CLAIM_ISSUED_AT));
+        $this->assertFalse($token->getPayload()->containsKey(Payload::CLAIM_NOT_BEFORE));
+        $this->assertFalse($token->getPayload()->containsKey(Payload::CLAIM_IDENTIFIER));
+
+        $this->assertTrue($service->verify($signedToken, $key));
+        $this->assertFalse($service->verify($signedToken->setSignature(null), $key));
+
+        $this->expectException(AlgorithmNotFoundException::class);
+        $this->assertFalse($service->verify($signedToken->setAlgorithm(new HS512())->setSignature($signedToken->getSignature()), $key));
+
+        $this->expectException(InvalidTokenException::class);
+        $this->assertFalse($service->verify($token, $key));
+
+        return $signedToken;
     }
 
-    /**
-     * @return array
-     */
+    public function provideKeyAndAlgorithm(): Generator
+    {
+        $cartesian = new CartesianProduct([$this->getAlgorithms(), iterator_to_array($this->getKey())]);
+        foreach ($cartesian->getIterator() as $arguments) {
+            yield $arguments;
+        }
+    }
+
     public function getAlgorithms(): array
     {
         return [
-            new Keccak512(),
-            new Keccak256(),
-            new HS512(),
-            new HS256()
+            new HS256(),
+            new Keccak256()
         ];
     }
 
-    public function getVerifyData(): array
+    public function getKey(): Generator
     {
-        return [
-            [
-                [
-
-                ],
-                true
-            ],
-            [
-                [
-                    Payload::CLAIM_EXPIRATION => 0
-                ],
-                false
-            ],
-            [
-                [
-                    Payload::CLAIM_ISSUER => 'not-test'
-                ],
-                false
-            ]
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    public function getVerifyProvider(): array
-    {
-        $algorithms = $this->getAlgorithms();
-        $data = $this->getVerifyData();
-
-        $result = [];
-        foreach ($algorithms as $algorithm) {
-            foreach ($data as $item) {
-                $payload = $item[0];
-                $expected = $item[1];
-
-                $result[] = [
-                    new SignatureToken(
-                        [
-                            Header::CLAIM_ALGORITHM => $algorithm->name()
-                        ], $payload
-                    ),
-                    $expected
-                ];
-            }
-        }
-
-        return $result;
+        yield new OctetKey(Base64UrlSafe::encode(Rand::getBytes(64)));
     }
 }
