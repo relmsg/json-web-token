@@ -144,7 +144,6 @@ class SignatureToken implements TokenInterface
 
     /**
      * @inheritDoc
-     * @throws InvalidTokenException
      */
     public function toString(SerializerInterface $serializer, bool $withoutSignature = false): string
     {

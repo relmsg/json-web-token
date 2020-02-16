@@ -40,7 +40,6 @@ interface SerializerInterface
      * @param TokenInterface $token
      *
      * @return string
-     * @throws InvalidTokenException
      */
     public function serialize(TokenInterface $token): string;
 
