@@ -45,7 +45,7 @@ class SignatureToken implements TokenInterface
      */
     private ?string $signature;
 
-    final public function __construct(array $header = [], array $payload = [], string $signature = null)
+    final public function __construct(array $header, array $payload = [], string $signature = null)
     {
         $this->header = new Header($header);
         $this->payload = new Payload($payload);
