@@ -35,6 +35,17 @@ abstract class AbstractClaimHandler implements TokenHandlerInterface
     public const HEADER_CLAIM  = 'header';
     public const PAYLOAD_CLAIM = 'payload';
 
+    public function __construct(array $properties = [])
+    {
+        foreach ($properties as $property => $value) {
+            if (!property_exists(self::class, $property)) {
+                throw new InvalidArgumentException(sprintf("Unknown %s property: %s.", self::class, $property));
+            }
+
+            $this->{$property} = $value;
+        }
+    }
+
     /**
      * Returns name of claim to handle.
      *
