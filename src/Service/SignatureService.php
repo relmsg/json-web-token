@@ -16,22 +16,17 @@
 
 namespace RM\Security\Jwt\Service;
 
-use Doctrine\Common\Annotations\AnnotationException;
-use Doctrine\Common\Annotations\AnnotationReader;
 use InvalidArgumentException;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use ReflectionClass;
-use ReflectionException;
 use RM\Security\Jwt\Algorithm\AlgorithmManager;
 use RM\Security\Jwt\Algorithm\Signature\SignatureAlgorithmInterface;
 use RM\Security\Jwt\Event\TokenPreSignEvent;
 use RM\Security\Jwt\Event\TokenSignEvent;
 use RM\Security\Jwt\Exception\AlgorithmNotFoundException;
 use RM\Security\Jwt\Exception\InvalidTokenException;
-use RM\Security\Jwt\Handler\TokenHandlerInterface;
 use RM\Security\Jwt\Handler\TokenHandlerList;
 use RM\Security\Jwt\Key\KeyInterface;
 use RM\Security\Jwt\Serializer\SignatureCompactSerializer;
@@ -88,7 +83,7 @@ class SignatureService implements SignatureServiceInterface
         // detach token to avoid the claims value changes in original token
         $token = clone $originalToken;
 
-        $handlerList = $this->findTokenHandlers($token);
+        $handlerList = $this->handlerList->mergeFromAnnotations($token);
         $handlerList->generate($token);
         $this->logger->debug("Handlers processed the token.");
 
@@ -118,7 +113,7 @@ class SignatureService implements SignatureServiceInterface
             return false;
         }
 
-        $handlerList = $this->findTokenHandlers($token);
+        $handlerList = $this->handlerList->mergeFromAnnotations($token);
         if (!$handlerList->validate($token)) {
             return false;
         }
@@ -155,38 +150,5 @@ class SignatureService implements SignatureServiceInterface
     public function getAlgorithmManager(): AlgorithmManager
     {
         return $this->algorithmManager;
-    }
-
-    protected function findTokenHandlers(SignatureToken $token): TokenHandlerList
-    {
-        $handlerList = clone $this->handlerList;
-
-        $annotations = $this->findAnnotations($token, TokenHandlerInterface::class);
-        if (!empty($annotations)) {
-            foreach ($annotations as $annotation) {
-                $handlerList->add($annotation);
-            }
-        }
-
-        return $handlerList;
-    }
-
-    private function findAnnotations(object $object, string $class): ?array
-    {
-        try {
-            $annotations = [];
-
-            $reflect = new ReflectionClass($object);
-            $reader = new AnnotationReader();
-            foreach ($reader->getClassAnnotations($reflect) as $annotation) {
-                if ($annotation instanceof $class) {
-                    $annotations[] = $annotation;
-                }
-            }
-
-            return $annotations;
-        } catch (ReflectionException|AnnotationException $e) {
-            return null;
-        }
     }
 }
