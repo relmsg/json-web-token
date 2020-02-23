@@ -120,7 +120,7 @@ class SignatureService implements SignatureServiceInterface
         }
 
         $resignedToken = $this->sign($token, $key, true);
-        return $token->getSignature() === $resignedToken->getSignature();
+        return hash_equals($token->getSignature(), $resignedToken->getSignature());
     }
 
     /**
