@@ -16,8 +16,7 @@
 
 namespace RM\Security\Jwt\Storage;
 
-use InvalidArgumentException;
-use Redis;
+use Predis\Client;
 
 /**
  * Class RedisTokenStorage
@@ -27,34 +26,22 @@ use Redis;
  */
 class RedisTokenStorage implements TokenStorageInterface
 {
-    private string $host;
-    private int    $port;
-    private float  $timeout;
-    private Redis  $redis;
+    private Client $redis;
 
-    /**
-     * RedisTokenStorage constructor.
-     *
-     * @param string $host
-     * @param int    $port
-     * @param float  $timeout
-     */
-    public function __construct(string $host, int $port = 6379, float $timeout = 0.0)
+    public function __construct(string $host = '127.0.0.1', int $port = 6379, int $database = 0, float $timeout = 0.0)
     {
-        $this->host = $host;
-        $this->port = $port;
-        $this->timeout = $timeout;
-
-        if (!class_exists(Redis::class, false)) {
-            throw new InvalidArgumentException("Redis class is not found. Maybe you should install redis php extension.");
-        }
-
-        $this->redis = new Redis();
-        $this->redis->connect($host, $port, $timeout);
+        $this->redis = new Client(
+            [
+                'host' => $host,
+                'port' => $port,
+                'database' => $database,
+                'timeout' => $timeout
+            ]
+        );
     }
 
     /**
-     * Checks if token id exists in storage
+     * Checks if token identifier exists in storage.
      *
      * @param string $tokenId
      *
@@ -66,23 +53,24 @@ class RedisTokenStorage implements TokenStorageInterface
     }
 
     /**
-     * Adds token id in storage on some duration (ttl)
+     * Adds token identifier in storage on some duration (ttl).
      *
      * @param string $tokenId
      * @param int    $duration
      */
     public function put(string $tokenId, int $duration): void
     {
-        $this->redis->set($tokenId, $tokenId, $duration);
+        $this->redis->set($tokenId, $tokenId);
+        $this->redis->expire($tokenId, $duration);
     }
 
     /**
-     * Revokes token
+     * Revokes token by token identifier.
      *
      * @param string $tokenId
      */
     public function revoke(string $tokenId): void
     {
-        $this->redis->del($tokenId);
+        $this->redis->del([$tokenId]);
     }
 }
