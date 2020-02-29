@@ -28,16 +28,9 @@ class RedisTokenStorage implements TokenStorageInterface
 {
     private Client $redis;
 
-    public function __construct(string $host = '127.0.0.1', int $port = 6379, int $database = 0, float $timeout = 0.0)
+    public function __construct(string $dsn)
     {
-        $this->redis = new Client(
-            [
-                'host' => $host,
-                'port' => $port,
-                'database' => $database,
-                'timeout' => $timeout
-            ]
-        );
+        $this->redis = new Client($dsn);
     }
 
     /**
@@ -72,5 +65,14 @@ class RedisTokenStorage implements TokenStorageInterface
     public function revoke(string $tokenId): void
     {
         $this->redis->del([$tokenId]);
+    }
+
+    public static function fromParameters(
+        string $host = '127.0.0.1',
+        int $port = 6379,
+        int $database = 0,
+        float $timeout = 0.0
+    ): self {
+        return new static(sprintf('redis://%s:%d/%d?timeout=%f', $host, $port, $database, $timeout));
     }
 }
