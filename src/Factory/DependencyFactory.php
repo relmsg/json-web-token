@@ -75,9 +75,17 @@ class DependencyFactory
         return $built;
     }
 
-    protected static function buildFromString(string $dependency): object
+    protected static function buildFromString(string $dependency, array $arguments = []): object
     {
-        return new $dependency();
+        if (class_exists($dependency)) {
+            return new $dependency(...$arguments);
+        }
+
+        if (is_callable($dependency)) {
+            return $dependency(...$arguments);
+        }
+
+        throw new DependencyBuildException(sprintf('Unable to create dependency from string `%s`.', $dependency));
     }
 
     protected static function buildFromArray(array $dependency): object
@@ -88,7 +96,7 @@ class DependencyFactory
 
         $class = key($dependency);
         $arguments = $dependency[$class];
-        return new $class(...$arguments);
+        return self::buildFromString($class, $arguments);
     }
 
     public static function create(): self
