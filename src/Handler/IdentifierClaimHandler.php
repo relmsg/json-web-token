@@ -18,6 +18,7 @@ namespace RM\Security\Jwt\Handler;
 
 use InvalidArgumentException;
 use RM\Security\Jwt\Exception\IncorrectClaimTypeException;
+use RM\Security\Jwt\Factory\DependencyFactory;
 use RM\Security\Jwt\Identifier\IdentifierGeneratorInterface;
 use RM\Security\Jwt\Identifier\UniqIdGenerator;
 use RM\Security\Jwt\Storage\RuntimeTokenStorage;
@@ -51,52 +52,32 @@ class IdentifierClaimHandler extends AbstractClaimHandler
 
         if (array_key_exists('tokenStorage', $properties)) {
             $property = $properties['tokenStorage'];
-            $tokenStorage = self::createDependency('tokenStorage', $property);
+            $tokenStorage = DependencyFactory::create()
+                ->setMustImplement(TokenStorageInterface::class)
+                ->setDependency($property)
+                ->build();
 
-            if (!$tokenStorage instanceof TokenStorageInterface) {
-                throw self::createMustImplementException('tokenStorage', TokenStorageInterface::class, get_class($tokenStorage));
+            if ($tokenStorage instanceof TokenStorageInterface) {
+                $this->tokenStorage = $tokenStorage;
             }
-
-            $this->tokenStorage = $tokenStorage;
         } else {
             $this->tokenStorage = new RuntimeTokenStorage();
         }
 
         if (array_key_exists('identifierGenerator', $properties)) {
             $property = $properties['identifierGenerator'];
-            $identifierGenerator = self::createDependency('identifierGenerator', $property);
+            $identifierGenerator = DependencyFactory::create()
+                ->setMustImplement(IdentifierGeneratorInterface::class)
+                ->setDependency($property)
+                ->build();
 
-            if (!$identifierGenerator instanceof IdentifierGeneratorInterface) {
-                throw self::createMustImplementException('identifierGenerator', IdentifierGeneratorInterface::class, get_class($identifierGenerator));
+            if ($identifierGenerator instanceof IdentifierGeneratorInterface) {
+                $this->identifierGenerator = $identifierGenerator;
             }
 
-            $this->identifierGenerator = $identifierGenerator;
         } else {
             $this->identifierGenerator = new UniqIdGenerator();
         }
-    }
-
-    /**
-     * @param string              $name
-     * @param array|object|string $property
-     *
-     * @return object
-     */
-    protected function createDependency(string $name, $property): object
-    {
-        if (is_object($property)) {
-            return $property;
-        }
-
-        if (is_string($property)) {
-            return self::createDependencyFromString($name, $property);
-        }
-
-        if (is_array($property)) {
-            return self::createDependencyFromArray($name, $property);
-        }
-
-        throw self::createMustImplementException($name, TokenStorageInterface::class, is_object($property) ? get_class($property) : gettype($property));
     }
 
     /**
@@ -113,13 +94,18 @@ class IdentifierClaimHandler extends AbstractClaimHandler
     protected function generateValue(): string
     {
         if ($this->identifierGenerator === null) {
-            throw new InvalidArgumentException(sprintf("To use %s required set up the identifier generator.", get_called_class()));
+            throw new InvalidArgumentException(
+                sprintf(
+                    'To use %s required set up the identifier generator.',
+                    static::class
+                )
+            );
         }
 
         $identifier = $this->identifierGenerator->generate();
 
         if ($this->tokenStorage === null) {
-            throw new InvalidArgumentException(sprintf("To use %s required set up the token storage.", get_called_class()));
+            throw new InvalidArgumentException(sprintf('To use %s required set up the token storage.', static::class));
         }
 
         $this->tokenStorage->put($identifier, $this->duration);
@@ -132,7 +118,7 @@ class IdentifierClaimHandler extends AbstractClaimHandler
     protected function validateValue($value): bool
     {
         if ($this->tokenStorage === null) {
-            throw new InvalidArgumentException(sprintf("To use %s required set up the token storage.", get_called_class()));
+            throw new InvalidArgumentException(sprintf('To use %s required set up the token storage.', static::class));
         }
 
         if (!is_string($value)) {
@@ -140,53 +126,5 @@ class IdentifierClaimHandler extends AbstractClaimHandler
         }
 
         return $this->tokenStorage->has($value);
-    }
-
-    /**
-     * @param string $name
-     * @param string $property
-     *
-     * @return object
-     */
-    protected static function createDependencyFromString(string $name, string $property): object
-    {
-        if (!class_exists($property)) {
-            throw new InvalidArgumentException(
-                sprintf('Expects FQCN string with class for %s::%s, got %s.', get_called_class(), $name, $property)
-            );
-        }
-
-        return new $property();
-    }
-
-    /**
-     * @param string $name
-     * @param array  $property
-     *
-     * @return object
-     */
-    protected static function createDependencyFromArray(string $name, array $property): object
-    {
-        if (count($property) !== 1) {
-            throw new InvalidArgumentException(
-                sprintf('Array should have only one value to create dependency for %s::%s.', get_called_class(), $name)
-            );
-        }
-
-        $class = key($property);
-        $arguments = $property[$class];
-        return new $class(...$arguments);
-    }
-
-    /**
-     * @param string $property
-     * @param string $implement
-     * @param string $got
-     *
-     * @return InvalidArgumentException
-     */
-    protected static function createMustImplementException(string $property, string $implement, string $got): InvalidArgumentException
-    {
-        return new InvalidArgumentException(sprintf('%s::%s must be a instance of %s, got %s', get_called_class(), $property, $implement, $got));
     }
 }
