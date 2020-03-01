@@ -57,15 +57,13 @@ class SignatureServiceTest extends TestCase
 
     public function createTokenHandlerList(): TokenHandlerList
     {
-        if (!defined('REDIS_HOST')) {
-            throw new Exception('No redis host constant.');
-        }
+        $redisHost = defined('REDIS_HOST') ? REDIS_HOST : '127.0.0.1';
 
         $issuerClaimHandler = new IssuerClaimHandler();
         $issuerClaimHandler->issuer = 'test';
 
         $identifierClaimHandler = new IdentifierClaimHandler();
-        $identifierClaimHandler->tokenStorage = new RedisTokenStorage(REDIS_HOST);
+        $identifierClaimHandler->tokenStorage = RedisTokenStorage::createFromParameters($redisHost);
         $identifierClaimHandler->identifierGenerator = new RandomUuidGenerator();
 
         return new TokenHandlerList(

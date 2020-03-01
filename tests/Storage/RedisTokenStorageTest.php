@@ -30,7 +30,7 @@ class RedisTokenStorageTest extends TestCase
     {
         $redisHost = defined('REDIS_HOST') ? REDIS_HOST : '127.0.0.1';
 
-        self::$storage = new RedisTokenStorage($redisHost);
+        self::$storage = RedisTokenStorage::createFromParameters($redisHost);
         self::$someTokenId = Rand::getString(256);
     }
 
