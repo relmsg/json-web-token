@@ -27,7 +27,7 @@ use stdClass;
 
 class SignatureCompactSerializerTest extends TestCase
 {
-    public function testSupports()
+    public function testSupports(): SignatureCompactSerializer
     {
         $serializer = new SignatureCompactSerializer(SignatureToken::class);
 

@@ -34,14 +34,14 @@ class MemcacheTokenStorageTest extends TestCase
         self::$someTokenId = Rand::getString(256);
     }
 
-    public function testPut()
+    public function testPut(): void
     {
         self::$storage->put(self::$someTokenId, 60);
         $this->assertTrue(self::$storage->has(self::$someTokenId));
         $this->assertFalse(self::$storage->has(Rand::getString(256)));
     }
 
-    public function testRevoke()
+    public function testRevoke(): void
     {
         self::$storage->revoke(self::$someTokenId);
         $this->assertFalse(self::$storage->has(self::$someTokenId));

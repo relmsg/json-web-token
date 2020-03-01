@@ -13,7 +13,6 @@
 namespace RM\Security\Jwt\Tests\Service;
 
 use BenTools\CartesianProduct\CartesianProduct;
-use Exception;
 use Generator;
 use Laminas\Math\Rand;
 use ParagonIE\ConstantTime\Base64UrlSafe;
@@ -59,16 +58,14 @@ class SignatureServiceTest extends TestCase
     {
         $redisHost = defined('REDIS_HOST') ? REDIS_HOST : '127.0.0.1';
 
-        $issuerClaimHandler = new IssuerClaimHandler();
-        $issuerClaimHandler->issuer = 'test';
+        $generator = new RandomUuidGenerator();
+        $tokenStorage = RedisTokenStorage::createFromParameters($redisHost);
 
-        $identifierClaimHandler = new IdentifierClaimHandler();
-        $identifierClaimHandler->tokenStorage = RedisTokenStorage::createFromParameters($redisHost);
-        $identifierClaimHandler->identifierGenerator = new RandomUuidGenerator();
+        $identifierClaimHandler = new IdentifierClaimHandler($generator, $tokenStorage);
 
         return new TokenHandlerList(
             [
-                $issuerClaimHandler,
+                new IssuerClaimHandler('test'),
                 new ExpirationClaimHandler(),
                 new NotBeforeClaimHandler(),
                 new IssuedAtClaimHandler(),

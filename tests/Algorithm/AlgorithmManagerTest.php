@@ -47,7 +47,7 @@ class AlgorithmManagerTest extends TestCase
         $this->manager->put($this->keccak512);
     }
 
-    public function testValidConstructor()
+    public function testValidConstructor(): void
     {
         $manager = new AlgorithmManager(
             [
@@ -58,7 +58,7 @@ class AlgorithmManagerTest extends TestCase
         $this->assertInstanceOf(AlgorithmManager::class, $manager);
     }
 
-    public function testInvalidConstructor()
+    public function testInvalidConstructor(): void
     {
         $this->expectException(TypeError::class);
 
@@ -69,31 +69,31 @@ class AlgorithmManagerTest extends TestCase
         );
     }
 
-    public function testValidGet()
+    public function testValidGet(): void
     {
         $this->assertEquals($this->keccak256, $this->manager->get($this->keccak256->name()));
     }
 
-    public function testInvalidGet()
+    public function testInvalidGet(): void
     {
         $this->expectException(AlgorithmNotFoundException::class);
         $this->manager->get($this->hs256->name());
     }
 
-    public function testHas()
+    public function testHas(): void
     {
         $this->assertTrue($this->manager->has($this->keccak256->name()));
         $this->assertFalse($this->manager->has($this->hs256->name()));
     }
 
-    public function testRemove()
+    public function testRemove(): void
     {
         $this->assertTrue($this->manager->has($this->keccak256->name()));
         $this->manager->remove($this->keccak256->name());
         $this->assertFalse($this->manager->has($this->keccak256->name()));
     }
 
-    public function testPut()
+    public function testPut(): void
     {
         $this->assertFalse($this->manager->has($this->hs512->name()));
         $this->manager->put($this->hs512);
