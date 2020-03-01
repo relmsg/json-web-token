@@ -36,7 +36,13 @@ class ExpirationClaimHandler extends AbstractClaimHandler
      *
      * @var int
      */
-    public int $duration = 60 * 60;
+    protected int $duration = 60 * 60;
+
+    public function __construct(int $duration = 60 * 60, int $leeway = 0)
+    {
+        $this->duration = $duration;
+        $this->leeway = $leeway;
+    }
 
     /**
      * @inheritDoc

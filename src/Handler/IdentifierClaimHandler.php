@@ -18,7 +18,6 @@ namespace RM\Security\Jwt\Handler;
 
 use InvalidArgumentException;
 use RM\Security\Jwt\Exception\IncorrectClaimTypeException;
-use RM\Security\Jwt\Factory\DependencyFactory;
 use RM\Security\Jwt\Identifier\IdentifierGeneratorInterface;
 use RM\Security\Jwt\Identifier\UniqIdGenerator;
 use RM\Security\Jwt\Storage\RuntimeTokenStorage;
@@ -33,8 +32,8 @@ use RM\Security\Jwt\Token\Payload;
  */
 class IdentifierClaimHandler extends AbstractClaimHandler
 {
-    public IdentifierGeneratorInterface $identifierGenerator;
-    public TokenStorageInterface $tokenStorage;
+    protected IdentifierGeneratorInterface $identifierGenerator;
+    protected TokenStorageInterface $tokenStorage;
 
     /**
      * Duration of token in seconds. By default is 1 hour.
@@ -42,41 +41,16 @@ class IdentifierClaimHandler extends AbstractClaimHandler
      *
      * @var int
      */
-    public int $duration = 60 * 60;
+    protected int $duration = 60 * 60;
 
-    public function __construct(array $properties = [])
-    {
-        // we will configure these properties ourselves
-        parent::__construct(array_diff_key($properties, array_flip(['tokenStorage', 'identifierGenerator'])));
-
-        if (array_key_exists('tokenStorage', $properties)) {
-            $property = $properties['tokenStorage'];
-            $tokenStorage = DependencyFactory::create()
-                ->setMustImplement(TokenStorageInterface::class)
-                ->setDependency($property)
-                ->build();
-
-            if ($tokenStorage instanceof TokenStorageInterface) {
-                $this->tokenStorage = $tokenStorage;
-            }
-        } else {
-            $this->tokenStorage = new RuntimeTokenStorage();
-        }
-
-        if (array_key_exists('identifierGenerator', $properties)) {
-            $property = $properties['identifierGenerator'];
-            $identifierGenerator = DependencyFactory::create()
-                ->setMustImplement(IdentifierGeneratorInterface::class)
-                ->setDependency($property)
-                ->build();
-
-            if ($identifierGenerator instanceof IdentifierGeneratorInterface) {
-                $this->identifierGenerator = $identifierGenerator;
-            }
-
-        } else {
-            $this->identifierGenerator = new UniqIdGenerator();
-        }
+    public function __construct(
+        IdentifierGeneratorInterface $generator = null,
+        TokenStorageInterface $storage = null,
+        int $duration = 60 * 60
+    ) {
+        $this->identifierGenerator = $generator ?? new UniqIdGenerator();
+        $this->tokenStorage = $storage ?? new RuntimeTokenStorage();
+        $this->duration = $duration;
     }
 
     /**

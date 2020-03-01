@@ -32,7 +32,12 @@ class IssuerClaimHandler extends AbstractClaimHandler
      *
      * @var string
      */
-    public string $issuer;
+    protected string $issuer;
+
+    public function __construct(string $issuer)
+    {
+        $this->issuer = $issuer;
+    }
 
     /**
      * @inheritDoc

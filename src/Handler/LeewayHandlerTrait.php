@@ -23,13 +23,18 @@ namespace RM\Security\Jwt\Handler;
  */
 trait LeewayHandlerTrait
 {
+    public function __construct(int $leeway = 0)
+    {
+        $this->leeway = $leeway;
+    }
+
     /**
      * Allowed leeway in seconds. By default is 0.
      * For security reason, cannot be more than 2 minutes.
      *
      * @var int
      */
-    public int $leeway = 0;
+    protected int $leeway = 0;
 
     /**
      * Max leeway value.
