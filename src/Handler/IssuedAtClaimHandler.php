@@ -25,7 +25,6 @@ use RM\Security\Jwt\Token\Payload;
  *
  * @package RM\Security\Jwt\Handler
  * @author  h1karo <h1karo@outlook.com>
- * @Annotation
  */
 class IssuedAtClaimHandler extends AbstractClaimHandler
 {

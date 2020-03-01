@@ -16,11 +16,7 @@
 
 namespace RM\Security\Jwt\Handler;
 
-use Doctrine\Common\Annotations\AnnotationException;
-use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Collections\ArrayCollection;
-use ReflectionClass;
-use ReflectionException;
 use RM\Security\Jwt\Token\TokenInterface;
 
 /**
@@ -65,23 +61,5 @@ final class TokenHandlerList extends ArrayCollection implements TokenHandlerInte
         }
 
         return true;
-    }
-
-    public function mergeFromAnnotations(TokenInterface $token): self
-    {
-        try {
-            $list = clone $this;
-
-            $reflect = new ReflectionClass($token);
-            $reader = new AnnotationReader();
-            $annotations = new ArrayCollection($reader->getClassAnnotations($reflect));
-            $annotations
-                ->filter(fn(object $annotation) => $annotation instanceof TokenHandlerInterface)
-                ->map(fn(TokenHandlerInterface $handler) => $list->add($handler));
-
-            return $list;
-        } catch (ReflectionException | AnnotationException $e) {
-            return $this;
-        }
     }
 }

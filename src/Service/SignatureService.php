@@ -83,8 +83,7 @@ class SignatureService implements SignatureServiceInterface
         // detach token to avoid the claims value changes in original token
         $token = clone $originalToken;
 
-        $handlerList = $this->handlerList->mergeFromAnnotations($token);
-        $handlerList->generate($token);
+        $this->handlerList->generate($token);
         $this->logger->debug("Handlers processed the token.");
 
         $signature = $algorithm->hash($key, $this->serializer->serialize($token, true));
@@ -113,8 +112,7 @@ class SignatureService implements SignatureServiceInterface
             return false;
         }
 
-        $handlerList = $this->handlerList->mergeFromAnnotations($token);
-        if (!$handlerList->validate($token)) {
+        if (!$this->handlerList->validate($token)) {
             return false;
         }
 
