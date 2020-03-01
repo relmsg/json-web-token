@@ -29,7 +29,7 @@ class Keccak512 extends HMAC
      */
     public function name(): string
     {
-        return "Keccak512";
+        return 'Keccak512';
     }
 
     /**
@@ -37,6 +37,6 @@ class Keccak512 extends HMAC
      */
     protected function getHashAlgorithm(): string
     {
-        return "sha3-512";
+        return 'sha3-512';
     }
 }

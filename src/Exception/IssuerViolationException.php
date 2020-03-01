@@ -29,6 +29,6 @@ class IssuerViolationException extends ClaimViolationException
 {
     public function __construct(IssuerClaimHandler $claimHandler, Throwable $previous = null)
     {
-        parent::__construct("Token issuer is different from current issuer.", $claimHandler, $previous);
+        parent::__construct('Token issuer is different from current issuer.', $claimHandler, $previous);
     }
 }

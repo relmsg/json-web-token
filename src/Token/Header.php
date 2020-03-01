@@ -39,15 +39,10 @@ class Header extends ClaimCollection
      */
     public const CLAIM_TYPE = 'typ';
 
-    /**
-     * Header constructor.
-     *
-     * @param array $parameters
-     */
     public function __construct(array $parameters = [])
     {
         if (!array_key_exists(self::CLAIM_ALGORITHM, $parameters)) {
-            throw new InvalidArgumentException(sprintf("Any JSON Web Token must have the algorithm parameter (`%s`).", self::CLAIM_ALGORITHM));
+            throw new InvalidArgumentException(sprintf('Any JSON Web Token must have the algorithm parameter (`%s`).', self::CLAIM_ALGORITHM));
         }
 
         parent::__construct(

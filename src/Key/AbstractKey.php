@@ -26,17 +26,12 @@ use InvalidArgumentException;
  */
 abstract class AbstractKey implements KeyInterface
 {
-    private array $parameters = [];
+    private array $parameters;
 
-    /**
-     * Key constructor.
-     *
-     * @param array $parameters
-     */
     public function __construct(array $parameters)
     {
         if (!array_key_exists(self::PARAM_KEY_TYPE, $parameters)) {
-            throw new InvalidArgumentException(sprintf("Any JSON Web Key must have the key type parameter (`%s`).", self::PARAM_KEY_TYPE));
+            throw new InvalidArgumentException(sprintf('Any JSON Web Key must have the key type parameter (`%s`).', self::PARAM_KEY_TYPE));
         }
 
         $this->parameters = $parameters;
@@ -48,7 +43,7 @@ abstract class AbstractKey implements KeyInterface
     public function get(string $parameter): string
     {
         if (!$this->has($parameter)) {
-            throw new InvalidArgumentException(sprintf("The parameter with name `%s` is not exists in this key.", $parameter));
+            throw new InvalidArgumentException(sprintf('The parameter with name `%s` is not exists in this key.', $parameter));
         }
 
         return $this->parameters[$parameter];

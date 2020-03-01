@@ -69,14 +69,14 @@ class SignatureService implements SignatureServiceInterface
     {
         if (!$resign && $originalToken->isSigned()) {
             throw new InvalidTokenException(
-                "This token already signed. If you wants to resign them, set `resign` argument on `true`."
+                'This token already signed. If you wants to resign them, set `resign` argument on `true`.'
             );
         }
 
-        $this->logger->info("Token sign started.", ['service' => get_class($this), 'token' => $originalToken]);
+        $this->logger->info('Token sign started.', ['service' => get_class($this), 'token' => $originalToken]);
 
         $algorithm = $this->findAlgorithm($originalToken->getAlgorithm());
-        $this->logger->debug("Found a algorithm to sign.", ['algorithm' => $algorithm->name()]);
+        $this->logger->debug('Found a algorithm to sign.', ['algorithm' => $algorithm->name()]);
 
         $this->eventDispatcher->dispatch(new TokenPreSignEvent($originalToken));
 
@@ -84,13 +84,13 @@ class SignatureService implements SignatureServiceInterface
         $token = clone $originalToken;
 
         $this->handlerList->generate($token);
-        $this->logger->debug("Handlers processed the token.");
+        $this->logger->debug('Handlers processed the token.');
 
         $signature = $algorithm->hash($key, $this->serializer->serialize($token, true));
         $signedToken = $token->setSignature($signature);
 
         $this->logger->debug(
-            "Signature generated with hash algorithm.",
+            'Signature generated with hash algorithm.',
             [
                 'signature' => Base64UrlSafe::encode($signature),
                 'algorithm' => $algorithm->name()
@@ -98,7 +98,7 @@ class SignatureService implements SignatureServiceInterface
         );
 
         $this->eventDispatcher->dispatch(new TokenSignEvent($signedToken));
-        $this->logger->info("Token sign complete successful.", ['token' => $signedToken]);
+        $this->logger->info('Token sign complete successful.', ['token' => $signedToken]);
 
         return $signedToken;
     }

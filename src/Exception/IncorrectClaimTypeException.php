@@ -28,6 +28,6 @@ class IncorrectClaimTypeException extends InvalidClaimException
 {
     public function __construct(string $expected, string $got, string $claim, Throwable $previous = null)
     {
-        parent::__construct(sprintf("Claim `%s` must be a %s, got %s.", $claim, $expected, $got), $claim, $previous);
+        parent::__construct(sprintf('Claim `%s` must be a %s, got %s.', $claim, $expected, $got), $claim, $previous);
     }
 }

@@ -29,7 +29,7 @@ class HS512 extends HMAC
      */
     public function name(): string
     {
-        return "HS512";
+        return 'HS512';
     }
 
     /**
@@ -37,6 +37,6 @@ class HS512 extends HMAC
      */
     protected function getHashAlgorithm(): string
     {
-        return "sha512";
+        return 'sha512';
     }
 }

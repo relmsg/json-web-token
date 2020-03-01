@@ -98,11 +98,11 @@ abstract class AbstractClaimHandler implements TokenHandlerInterface
             throw $e;
         } catch (Exception $e) {
             // incorrect exception, throw ClaimViolationException with previous
-            throw new ClaimViolationException("The token did not pass validation.", $this, $e);
+            throw new ClaimViolationException('The token did not pass validation.', $this, $e);
         }
 
         // if no exception and result false, then just throw ClaimViolationException
-        throw new ClaimViolationException("The token did not pass validation.", $this);
+        throw new ClaimViolationException('The token did not pass validation.', $this);
     }
 
     /**
@@ -125,9 +125,11 @@ abstract class AbstractClaimHandler implements TokenHandlerInterface
      */
     protected function resolveTarget(TokenInterface $token): ClaimCollection
     {
-        if ($this->getClaimTarget() === AbstractClaimHandler::HEADER_CLAIM) {
+        if ($this->getClaimTarget() === self::HEADER_CLAIM) {
             return $token->getHeader();
-        } elseif ($this->getClaimTarget() === AbstractClaimHandler::PAYLOAD_CLAIM) {
+        }
+
+        if ($this->getClaimTarget() === self::PAYLOAD_CLAIM) {
             return $token->getPayload();
         }
 

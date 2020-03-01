@@ -42,7 +42,7 @@ class SignatureCompactSerializer implements SignatureSerializerInterface
      * @see SignatureCompactSerializer::serialize()
      * @see SignatureCompactSerializer::deserialize()
      */
-    public const TOKEN_DELIMITER = ".";
+    public const TOKEN_DELIMITER = '.';
 
     /**
      * The token class whose serialization is supported by this serializer.
@@ -73,7 +73,7 @@ class SignatureCompactSerializer implements SignatureSerializerInterface
         if (!$token instanceof SignatureToken) {
             throw new InvalidArgumentException(
                 sprintf(
-                    "%s can serialize only %s, given %s",
+                    '%s can serialize only %s, given %s',
                     self::class,
                     SignatureToken::class,
                     get_class($token)
@@ -97,7 +97,7 @@ class SignatureCompactSerializer implements SignatureSerializerInterface
 
             return implode(self::TOKEN_DELIMITER, $parts);
         } catch (ValidationFailedException|EncodingFailedException $e) {
-            throw new InvalidTokenException("The token data is invalid and cannot be serialized in JSON.", $e);
+            throw new InvalidTokenException('The token data is invalid and cannot be serialized in JSON.', $e);
         }
     }
 
@@ -106,9 +106,10 @@ class SignatureCompactSerializer implements SignatureSerializerInterface
      */
     public function deserialize(string $serialized): TokenInterface
     {
-        $parts = explode(SignatureCompactSerializer::TOKEN_DELIMITER, $serialized);
-        if (sizeof($parts) < 2 || sizeof($parts) > 3) {
-            throw new InvalidTokenException("Token must implement JSON Web Token standard or any related standard.");
+        $parts = explode(self::TOKEN_DELIMITER, $serialized);
+        $count = count($parts);
+        if ($count < 2 || $count > 3) {
+            throw new InvalidTokenException('Token must implement JSON Web Token standard or any related standard.');
         }
 
         try {
@@ -120,14 +121,14 @@ class SignatureCompactSerializer implements SignatureSerializerInterface
             $jsonPayload = Base64UrlSafe::decode($b64Payload);
             $payload = $this->decoder->decode($jsonPayload);
 
-            if (sizeof($parts) === 3) {
+            if ($count === 3) {
                 $b64Signature = $parts[2];
                 $signature = Base64UrlSafe::decode($b64Signature);
             }
 
             return new $this->class($header, $payload, $signature ?? null);
         } catch (ValidationFailedException|DecodingFailedException $e) {
-            throw new InvalidTokenException("The token is invalid and cannot be parsed from JSON.", $e);
+            throw new InvalidTokenException('The token is invalid and cannot be parsed from JSON.', $e);
         }
     }
 

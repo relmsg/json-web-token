@@ -29,7 +29,7 @@ class Keccak256 extends HMAC
      */
     public function name(): string
     {
-        return "Keccak256";
+        return 'Keccak256';
     }
 
     /**
@@ -37,6 +37,6 @@ class Keccak256 extends HMAC
      */
     protected function getHashAlgorithm(): string
     {
-        return "sha3-256";
+        return 'sha3-256';
     }
 }

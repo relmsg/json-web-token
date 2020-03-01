@@ -29,6 +29,6 @@ class IssuedAtViolationException extends ClaimViolationException
 {
     public function __construct(IssuedAtClaimHandler $claimHandler, Throwable $previous = null)
     {
-        parent::__construct("This token is issued in the future.", $claimHandler, $previous);
+        parent::__construct('This token is issued in the future.', $claimHandler, $previous);
     }
 }

@@ -29,6 +29,6 @@ class NotBeforeViolationException extends ClaimViolationException
 {
     public function __construct(AbstractClaimHandler $claimHandler, Throwable $previous = null)
     {
-        parent::__construct("The token cannot be used yet.", $claimHandler, $previous);
+        parent::__construct('The token cannot be used yet.', $claimHandler, $previous);
     }
 }

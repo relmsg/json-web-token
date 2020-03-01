@@ -31,7 +31,7 @@ class NoneAlgorithm implements SignatureAlgorithmInterface
      */
     public function name(): string
     {
-        return "none";
+        return 'none';
     }
 
     /**

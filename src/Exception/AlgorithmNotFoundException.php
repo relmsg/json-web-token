@@ -28,6 +28,6 @@ class AlgorithmNotFoundException extends InvalidTokenException
 {
     public function __construct(string $algorithm, Throwable $previous = null)
     {
-        parent::__construct(sprintf("The algorithm with name `%s` is not exists.", $algorithm), $previous);
+        parent::__construct(sprintf('The algorithm with name `%s` is not exists.', $algorithm), $previous);
     }
 }

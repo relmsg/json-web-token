@@ -27,7 +27,7 @@ use Ramsey\Uuid\Uuid;
  * @package RM\Security\Jwt\Identifier
  * @author  h1karo <h1karo@outlook.com>
  */
-class RandomUuidGenerator implements IdentifierGeneratorInterface
+final class RandomUuidGenerator implements IdentifierGeneratorInterface
 {
     /**
      * @return string

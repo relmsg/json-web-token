@@ -24,11 +24,6 @@ namespace RM\Security\Jwt\Key;
  */
 final class OctetKey extends AbstractKey
 {
-    /**
-     * OctetKey constructor.
-     *
-     * @param string $value
-     */
     public function __construct(string $value)
     {
         parent::__construct(
@@ -39,9 +34,6 @@ final class OctetKey extends AbstractKey
         );
     }
 
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
         return $this->get(self::PARAM_KEY_VALUE);

@@ -132,7 +132,7 @@ class SignatureToken implements TokenInterface
         if (!$serializer instanceof SignatureSerializerInterface) {
             throw new InvalidArgumentException(
                 sprintf(
-                    "%s can be serialized only with %s.",
+                    '%s can be serialized only with %s.',
                     self::class,
                     SignatureSerializerInterface::class
                 )

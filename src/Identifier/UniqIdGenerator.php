@@ -22,9 +22,14 @@ namespace RM\Security\Jwt\Identifier;
  * @package RM\Security\Jwt\Identifier
  * @author  h1karo <h1karo@outlook.com>
  */
-class UniqIdGenerator implements IdentifierGeneratorInterface
+final class UniqIdGenerator implements IdentifierGeneratorInterface
 {
-    public string $prefix = '';
+    protected string $prefix = '';
+
+    public function __construct(string $prefix = '')
+    {
+        $this->prefix = $prefix;
+    }
 
     public function generate(): string
     {

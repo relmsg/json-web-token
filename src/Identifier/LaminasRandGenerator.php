@@ -24,11 +24,16 @@ use Laminas\Math\Rand;
  * @package RM\Security\Jwt\Identifier
  * @author  h1karo <h1karo@outlook.com>
  */
-class LaminasRandGenerator implements IdentifierGeneratorInterface
+final class LaminasRandGenerator implements IdentifierGeneratorInterface
 {
     private const MIN_LENGTH = 32;
 
-    public int $length = 64;
+    protected int $length = 64;
+
+    public function __construct(int $length = 64)
+    {
+        $this->length = $length;
+    }
 
     /**
      * @return string
@@ -44,7 +49,7 @@ class LaminasRandGenerator implements IdentifierGeneratorInterface
      *
      * @return int
      */
-    final private function getLength(): int
+    private function getLength(): int
     {
         if ($this->length <= self::MIN_LENGTH) {
             @trigger_error(

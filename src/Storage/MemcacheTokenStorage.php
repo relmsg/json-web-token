@@ -27,23 +27,14 @@ use Memcache;
  */
 class MemcacheTokenStorage implements TokenStorageInterface
 {
-    private string   $host;
-    private int      $port;
     private Memcache $memcache;
 
-    /**
-     * MemcacheTokenStorage constructor.
-     *
-     * @param string $host
-     * @param int    $port
-     */
     public function __construct(string $host, int $port = 11211)
     {
-        $this->host = $host;
-        $this->port = $port;
-
         if (!class_exists(Memcache::class, false)) {
-            throw new InvalidArgumentException("Memcache class is not found. Maybe you should install memcache php extension.");
+            throw new InvalidArgumentException(
+                'Memcache class is not found. Maybe you should install memcache php extension.'
+            );
         }
 
         $this->memcache = new Memcache();

@@ -29,7 +29,7 @@ class HS256 extends HMAC
      */
     public function name(): string
     {
-        return "HS256";
+        return 'HS256';
     }
 
     /**
@@ -37,6 +37,6 @@ class HS256 extends HMAC
      */
     protected function getHashAlgorithm(): string
     {
-        return "sha256";
+        return 'sha256';
     }
 }

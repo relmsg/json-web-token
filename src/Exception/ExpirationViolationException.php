@@ -29,6 +29,6 @@ class ExpirationViolationException extends ClaimViolationException
 {
     public function __construct(ExpirationClaimHandler $claimHandler, Throwable $previous = null)
     {
-        parent::__construct("The token expired.", $claimHandler, $previous);
+        parent::__construct('The token expired.', $claimHandler, $previous);
     }
 }
