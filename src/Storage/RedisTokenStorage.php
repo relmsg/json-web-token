@@ -67,7 +67,7 @@ class RedisTokenStorage implements TokenStorageInterface
         $this->redis->del([$tokenId]);
     }
 
-    public static function fromParameters(
+    public static function createFromParameters(
         string $host = '127.0.0.1',
         int $port = 6379,
         int $database = 0,
