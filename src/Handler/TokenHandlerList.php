@@ -25,7 +25,7 @@ use RM\Security\Jwt\Token\TokenInterface;
  * @package RM\Security\Jwt\Handler
  * @author  h1karo <h1karo@outlook.com>
  */
-final class TokenHandlerList extends ArrayCollection implements TokenHandlerInterface
+class TokenHandlerList extends ArrayCollection implements TokenHandlerInterface
 {
     /**
      * TokenHandlerList constructor.
