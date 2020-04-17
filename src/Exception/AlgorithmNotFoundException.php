@@ -14,14 +14,14 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Exception;
+namespace RM\Standard\Jwt\Exception;
 
 use Throwable;
 
 /**
  * Class AlgorithmNotFoundException
  *
- * @package RM\Security\Jwt\Exception
+ * @package RM\Standard\Jwt\Exception
  * @author  h1karo <h1karo@outlook.com>
  */
 class AlgorithmNotFoundException extends InvalidTokenException

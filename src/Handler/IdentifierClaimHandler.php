@@ -14,20 +14,20 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Handler;
+namespace RM\Standard\Jwt\Handler;
 
 use InvalidArgumentException;
-use RM\Security\Jwt\Exception\IncorrectClaimTypeException;
-use RM\Security\Jwt\Identifier\IdentifierGeneratorInterface;
-use RM\Security\Jwt\Identifier\UniqIdGenerator;
-use RM\Security\Jwt\Storage\RuntimeTokenStorage;
-use RM\Security\Jwt\Storage\TokenStorageInterface;
-use RM\Security\Jwt\Token\Payload;
+use RM\Standard\Jwt\Exception\IncorrectClaimTypeException;
+use RM\Standard\Jwt\Identifier\IdentifierGeneratorInterface;
+use RM\Standard\Jwt\Identifier\UniqIdGenerator;
+use RM\Standard\Jwt\Storage\RuntimeTokenStorage;
+use RM\Standard\Jwt\Storage\TokenStorageInterface;
+use RM\Standard\Jwt\Token\Payload;
 
 /**
  * Class IdentifierClaimHandler provides processing for { @see Payload::CLAIM_IDENTIFIER } claim.
  *
- * @package RM\Security\Jwt\Handler
+ * @package RM\Standard\Jwt\Handler
  * @author  h1karo <h1karo@outlook.com>
  */
 class IdentifierClaimHandler extends AbstractClaimHandler

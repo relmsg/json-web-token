@@ -14,12 +14,12 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Storage;
+namespace RM\Standard\Jwt\Storage;
 
 /**
  * Interface TokenIdStorage
  *
- * @package RM\Security\Jwt\Storage
+ * @package RM\Standard\Jwt\Storage
  * @author  h1karo <h1karo@outlook.com>
  */
 interface TokenStorageInterface

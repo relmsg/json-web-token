@@ -14,30 +14,30 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Service;
+namespace RM\Standard\Jwt\Service;
 
 use InvalidArgumentException;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use RM\Security\Jwt\Algorithm\AlgorithmManager;
-use RM\Security\Jwt\Algorithm\Signature\SignatureAlgorithmInterface;
-use RM\Security\Jwt\Event\TokenPreSignEvent;
-use RM\Security\Jwt\Event\TokenSignEvent;
-use RM\Security\Jwt\Exception\AlgorithmNotFoundException;
-use RM\Security\Jwt\Exception\InvalidTokenException;
-use RM\Security\Jwt\Handler\TokenHandlerList;
-use RM\Security\Jwt\Key\KeyInterface;
-use RM\Security\Jwt\Serializer\SignatureCompactSerializer;
-use RM\Security\Jwt\Serializer\SignatureSerializerInterface;
-use RM\Security\Jwt\Token\SignatureToken;
+use RM\Standard\Jwt\Algorithm\AlgorithmManager;
+use RM\Standard\Jwt\Algorithm\Signature\SignatureAlgorithmInterface;
+use RM\Standard\Jwt\Event\TokenPreSignEvent;
+use RM\Standard\Jwt\Event\TokenSignEvent;
+use RM\Standard\Jwt\Exception\AlgorithmNotFoundException;
+use RM\Standard\Jwt\Exception\InvalidTokenException;
+use RM\Standard\Jwt\Handler\TokenHandlerList;
+use RM\Standard\Jwt\Key\KeyInterface;
+use RM\Standard\Jwt\Serializer\SignatureCompactSerializer;
+use RM\Standard\Jwt\Serializer\SignatureSerializerInterface;
+use RM\Standard\Jwt\Token\SignatureToken;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
  * Class SignatureService
  *
- * @package RM\Security\Jwt\Service
+ * @package RM\Standard\Jwt\Service
  * @author  h1karo <h1karo@outlook.com>
  */
 class SignatureService implements SignatureServiceInterface

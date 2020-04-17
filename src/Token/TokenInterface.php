@@ -14,15 +14,15 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Token;
+namespace RM\Standard\Jwt\Token;
 
-use RM\Security\Jwt\Algorithm\AlgorithmInterface;
-use RM\Security\Jwt\Serializer\SerializerInterface;
+use RM\Standard\Jwt\Algorithm\AlgorithmInterface;
+use RM\Standard\Jwt\Serializer\SerializerInterface;
 
 /**
  * Interface TokenInterface
  *
- * @package RM\Security\Jwt\Token
+ * @package RM\Standard\Jwt\Token
  * @author  h1karo <h1karo@outlook.com>
  */
 interface TokenInterface

@@ -14,15 +14,15 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Exception;
+namespace RM\Standard\Jwt\Exception;
 
-use RM\Security\Jwt\Handler\AbstractClaimHandler;
+use RM\Standard\Jwt\Handler\AbstractClaimHandler;
 use Throwable;
 
 /**
  * Class NotBeforeViolationException
  *
- * @package RM\Security\Jwt\Exception
+ * @package RM\Standard\Jwt\Exception
  * @author  h1karo <h1karo@outlook.com>
  */
 class NotBeforeViolationException extends ClaimViolationException

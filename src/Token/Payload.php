@@ -14,19 +14,19 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Token;
+namespace RM\Standard\Jwt\Token;
 
-use RM\Security\Jwt\Handler\ExpirationClaimHandler;
-use RM\Security\Jwt\Handler\IdentifierClaimHandler;
-use RM\Security\Jwt\Handler\IssuedAtClaimHandler;
-use RM\Security\Jwt\Handler\IssuerClaimHandler;
-use RM\Security\Jwt\Handler\NotBeforeClaimHandler;
-use RM\Security\Jwt\Storage\TokenStorageInterface;
+use RM\Standard\Jwt\Handler\ExpirationClaimHandler;
+use RM\Standard\Jwt\Handler\IdentifierClaimHandler;
+use RM\Standard\Jwt\Handler\IssuedAtClaimHandler;
+use RM\Standard\Jwt\Handler\IssuerClaimHandler;
+use RM\Standard\Jwt\Handler\NotBeforeClaimHandler;
+use RM\Standard\Jwt\Storage\TokenStorageInterface;
 
 /**
  * Class Payload
  *
- * @package RM\Security\Jwt\Token
+ * @package RM\Standard\Jwt\Token
  * @author  h1karo <h1karo@outlook.com>
  */
 class Payload extends ClaimCollection

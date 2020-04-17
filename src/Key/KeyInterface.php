@@ -14,14 +14,14 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Key;
+namespace RM\Standard\Jwt\Key;
 
 use JsonSerializable;
 
 /**
  * Interface KeyInterface implements JSON Web Key standard (RFC 7517)
  *
- * @package RM\Security\Jwt\Key
+ * @package RM\Standard\Jwt\Key
  * @author  h1karo <h1karo@outlook.com>
  * @see     https://tools.ietf.org/pdf/rfc7517
  */

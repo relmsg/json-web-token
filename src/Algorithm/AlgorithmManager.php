@@ -14,14 +14,14 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Algorithm;
+namespace RM\Standard\Jwt\Algorithm;
 
-use RM\Security\Jwt\Exception\AlgorithmNotFoundException;
+use RM\Standard\Jwt\Exception\AlgorithmNotFoundException;
 
 /**
  * Class AlgorithmManager
  *
- * @package RM\Security\Jwt\Algorithm
+ * @package RM\Standard\Jwt\Algorithm
  * @author  h1karo <h1karo@outlook.com>
  */
 class AlgorithmManager

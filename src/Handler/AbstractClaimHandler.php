@@ -14,20 +14,20 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Handler;
+namespace RM\Standard\Jwt\Handler;
 
 use Exception;
 use InvalidArgumentException;
-use RM\Security\Jwt\Exception\ClaimViolationException;
-use RM\Security\Jwt\Exception\InvalidClaimException;
-use RM\Security\Jwt\Exception\InvalidTokenException;
-use RM\Security\Jwt\Token\ClaimCollection;
-use RM\Security\Jwt\Token\TokenInterface;
+use RM\Standard\Jwt\Exception\ClaimViolationException;
+use RM\Standard\Jwt\Exception\InvalidClaimException;
+use RM\Standard\Jwt\Exception\InvalidTokenException;
+use RM\Standard\Jwt\Token\ClaimCollection;
+use RM\Standard\Jwt\Token\TokenInterface;
 
 /**
  * Class AbstractClaimHandler
  *
- * @package RM\Security\Jwt\Handler
+ * @package RM\Standard\Jwt\Handler
  * @author  h1karo <h1karo@outlook.com>
  */
 abstract class AbstractClaimHandler implements TokenHandlerInterface

@@ -14,12 +14,12 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Algorithm\Signature;
+namespace RM\Standard\Jwt\Algorithm\Signature;
 
 /**
  * Class Keccak512
  *
- * @package RM\Security\Jwt\Algorithm\Signature
+ * @package RM\Standard\Jwt\Algorithm\Signature
  * @author  h1karo <h1karo@outlook.com>
  */
 class Keccak512 extends HMAC

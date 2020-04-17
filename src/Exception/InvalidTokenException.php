@@ -14,7 +14,7 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Exception;
+namespace RM\Standard\Jwt\Exception;
 
 use Exception;
 use Throwable;
@@ -22,7 +22,7 @@ use Throwable;
 /**
  * Class InvalidTokenException
  *
- * @package RM\Security\Jwt\Exception
+ * @package RM\Standard\Jwt\Exception
  * @author  h1karo <h1karo@outlook.com>
  */
 class InvalidTokenException extends Exception

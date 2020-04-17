@@ -14,15 +14,15 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Exception;
+namespace RM\Standard\Jwt\Exception;
 
-use RM\Security\Jwt\Handler\IssuerClaimHandler;
+use RM\Standard\Jwt\Handler\IssuerClaimHandler;
 use Throwable;
 
 /**
  * Class IssuerViolationException
  *
- * @package RM\Security\Jwt\Exception
+ * @package RM\Standard\Jwt\Exception
  * @author  h1karo <h1karo@outlook.com>
  */
 class IssuerViolationException extends ClaimViolationException

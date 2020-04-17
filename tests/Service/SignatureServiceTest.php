@@ -10,34 +10,34 @@
  * @license   https://legal.relmsg.ru/licenses/json-web-token
  */
 
-namespace RM\Security\Jwt\Tests\Service;
+namespace RM\Standard\Jwt\Tests\Service;
 
 use BenTools\CartesianProduct\CartesianProduct;
 use Generator;
 use Laminas\Math\Rand;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 use PHPUnit\Framework\TestCase;
-use RM\Security\Jwt\Algorithm\AlgorithmInterface;
-use RM\Security\Jwt\Algorithm\AlgorithmManager;
-use RM\Security\Jwt\Algorithm\Signature\HS256;
-use RM\Security\Jwt\Algorithm\Signature\HS512;
-use RM\Security\Jwt\Algorithm\Signature\Keccak256;
-use RM\Security\Jwt\Exception\AlgorithmNotFoundException;
-use RM\Security\Jwt\Exception\InvalidTokenException;
-use RM\Security\Jwt\Handler\ExpirationClaimHandler;
-use RM\Security\Jwt\Handler\IdentifierClaimHandler;
-use RM\Security\Jwt\Handler\IssuedAtClaimHandler;
-use RM\Security\Jwt\Handler\IssuerClaimHandler;
-use RM\Security\Jwt\Handler\NotBeforeClaimHandler;
-use RM\Security\Jwt\Handler\TokenHandlerList;
-use RM\Security\Jwt\Identifier\RandomUuidGenerator;
-use RM\Security\Jwt\Key\KeyInterface;
-use RM\Security\Jwt\Key\OctetKey;
-use RM\Security\Jwt\Service\SignatureService;
-use RM\Security\Jwt\Storage\RedisTokenStorage;
-use RM\Security\Jwt\Token\Payload;
-use RM\Security\Jwt\Token\SignatureToken;
-use RM\Security\Jwt\Token\TokenInterface;
+use RM\Standard\Jwt\Algorithm\AlgorithmInterface;
+use RM\Standard\Jwt\Algorithm\AlgorithmManager;
+use RM\Standard\Jwt\Algorithm\Signature\HS256;
+use RM\Standard\Jwt\Algorithm\Signature\HS512;
+use RM\Standard\Jwt\Algorithm\Signature\Keccak256;
+use RM\Standard\Jwt\Exception\AlgorithmNotFoundException;
+use RM\Standard\Jwt\Exception\InvalidTokenException;
+use RM\Standard\Jwt\Handler\ExpirationClaimHandler;
+use RM\Standard\Jwt\Handler\IdentifierClaimHandler;
+use RM\Standard\Jwt\Handler\IssuedAtClaimHandler;
+use RM\Standard\Jwt\Handler\IssuerClaimHandler;
+use RM\Standard\Jwt\Handler\NotBeforeClaimHandler;
+use RM\Standard\Jwt\Handler\TokenHandlerList;
+use RM\Standard\Jwt\Identifier\RandomUuidGenerator;
+use RM\Standard\Jwt\Key\KeyInterface;
+use RM\Standard\Jwt\Key\OctetKey;
+use RM\Standard\Jwt\Service\SignatureService;
+use RM\Standard\Jwt\Storage\RedisTokenStorage;
+use RM\Standard\Jwt\Token\Payload;
+use RM\Standard\Jwt\Token\SignatureToken;
+use RM\Standard\Jwt\Token\TokenInterface;
 
 class SignatureServiceTest extends TestCase
 {

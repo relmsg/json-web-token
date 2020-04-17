@@ -14,16 +14,16 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Handler;
+namespace RM\Standard\Jwt\Handler;
 
-use RM\Security\Jwt\Exception\IncorrectClaimTypeException;
-use RM\Security\Jwt\Exception\IssuedAtViolationException;
-use RM\Security\Jwt\Token\Payload;
+use RM\Standard\Jwt\Exception\IncorrectClaimTypeException;
+use RM\Standard\Jwt\Exception\IssuedAtViolationException;
+use RM\Standard\Jwt\Token\Payload;
 
 /**
  * Class IssuedAtClaimHandler
  *
- * @package RM\Security\Jwt\Handler
+ * @package RM\Standard\Jwt\Handler
  * @author  h1karo <h1karo@outlook.com>
  */
 class IssuedAtClaimHandler extends AbstractClaimHandler

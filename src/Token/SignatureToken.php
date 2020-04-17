@@ -14,21 +14,21 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Token;
+namespace RM\Standard\Jwt\Token;
 
 use InvalidArgumentException;
-use RM\Security\Jwt\Algorithm\AlgorithmInterface;
-use RM\Security\Jwt\Algorithm\Signature\SignatureAlgorithmInterface;
-use RM\Security\Jwt\Serializer\SerializerInterface;
-use RM\Security\Jwt\Serializer\SignatureCompactSerializer;
-use RM\Security\Jwt\Serializer\SignatureSerializerInterface;
-use RM\Security\Jwt\Service\SignatureServiceInterface;
+use RM\Standard\Jwt\Algorithm\AlgorithmInterface;
+use RM\Standard\Jwt\Algorithm\Signature\SignatureAlgorithmInterface;
+use RM\Standard\Jwt\Serializer\SerializerInterface;
+use RM\Standard\Jwt\Serializer\SignatureCompactSerializer;
+use RM\Standard\Jwt\Serializer\SignatureSerializerInterface;
+use RM\Standard\Jwt\Service\SignatureServiceInterface;
 
 /**
  * Class SignatureToken implements JSON Web Signature standard (RFC 7515)
  *
  * @see     https://tools.ietf.org/pdf/rfc7515
- * @package RM\Security\Jwt\Token
+ * @package RM\Standard\Jwt\Token
  * @author  h1karo <h1karo@outlook.com>
  */
 class SignatureToken implements TokenInterface

@@ -14,15 +14,15 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Handler;
+namespace RM\Standard\Jwt\Handler;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use RM\Security\Jwt\Token\TokenInterface;
+use RM\Standard\Jwt\Token\TokenInterface;
 
 /**
  * Class TokenHandlerList
  *
- * @package RM\Security\Jwt\Handler
+ * @package RM\Standard\Jwt\Handler
  * @author  h1karo <h1karo@outlook.com>
  */
 class TokenHandlerList extends ArrayCollection implements TokenHandlerInterface

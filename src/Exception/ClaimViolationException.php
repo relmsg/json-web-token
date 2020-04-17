@@ -14,16 +14,16 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Exception;
+namespace RM\Standard\Jwt\Exception;
 
-use RM\Security\Jwt\Handler\AbstractClaimHandler;
+use RM\Standard\Jwt\Handler\AbstractClaimHandler;
 use Throwable;
 
 /**
  * Class ViolationException
  * This class isn't related to symfony validation package.
  *
- * @package RM\Security\Jwt\Exception
+ * @package RM\Standard\Jwt\Exception
  * @author  h1karo <h1karo@outlook.com>
  */
 class ClaimViolationException extends InvalidClaimException

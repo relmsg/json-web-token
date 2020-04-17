@@ -14,12 +14,12 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Event;
+namespace RM\Standard\Jwt\Event;
 
 /**
  * Class TokenSignedEvent
  *
- * @package RM\Security\Jwt\Event
+ * @package RM\Standard\Jwt\Event
  * @author  h1karo <h1karo@outlook.com>
  */
 class TokenSignEvent extends AbstractSignEvent

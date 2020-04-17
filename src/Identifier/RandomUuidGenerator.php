@@ -14,7 +14,7 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Identifier;
+namespace RM\Standard\Jwt\Identifier;
 
 use Exception;
 use InvalidArgumentException;
@@ -24,7 +24,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * Class RandomUuidGenerator provides UUID v4 via ramsey\uuid package.
  *
- * @package RM\Security\Jwt\Identifier
+ * @package RM\Standard\Jwt\Identifier
  * @author  h1karo <h1karo@outlook.com>
  */
 final class RandomUuidGenerator implements IdentifierGeneratorInterface

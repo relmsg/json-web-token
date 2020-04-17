@@ -14,15 +14,15 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Serializer;
+namespace RM\Standard\Jwt\Serializer;
 
-use RM\Security\Jwt\Exception\InvalidTokenException;
-use RM\Security\Jwt\Token\TokenInterface;
+use RM\Standard\Jwt\Exception\InvalidTokenException;
+use RM\Standard\Jwt\Token\TokenInterface;
 
 /**
  * Interface SerializerInterface provides serialization functional for tokens.
  *
- * @package RM\Security\Jwt\Serializer
+ * @package RM\Standard\Jwt\Serializer
  * @author  h1karo <h1karo@outlook.com>
  */
 interface SerializerInterface

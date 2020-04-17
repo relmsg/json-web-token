@@ -14,20 +14,20 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Service;
+namespace RM\Standard\Jwt\Service;
 
-use RM\Security\Jwt\Algorithm\Signature\SignatureAlgorithmInterface;
-use RM\Security\Jwt\Event\TokenPreSignEvent;
-use RM\Security\Jwt\Event\TokenSignEvent;
-use RM\Security\Jwt\Exception\ClaimViolationException;
-use RM\Security\Jwt\Exception\InvalidTokenException;
-use RM\Security\Jwt\Key\KeyInterface;
-use RM\Security\Jwt\Token\SignatureToken;
+use RM\Standard\Jwt\Algorithm\Signature\SignatureAlgorithmInterface;
+use RM\Standard\Jwt\Event\TokenPreSignEvent;
+use RM\Standard\Jwt\Event\TokenSignEvent;
+use RM\Standard\Jwt\Exception\ClaimViolationException;
+use RM\Standard\Jwt\Exception\InvalidTokenException;
+use RM\Standard\Jwt\Key\KeyInterface;
+use RM\Standard\Jwt\Token\SignatureToken;
 
 /**
  * Interface SignatureServiceInterface
  *
- * @package RM\Security\Jwt\Service
+ * @package RM\Standard\Jwt\Service
  * @author  h1karo <h1karo@outlook.com>
  */
 interface SignatureServiceInterface

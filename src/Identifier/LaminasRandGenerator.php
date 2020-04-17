@@ -14,14 +14,14 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Identifier;
+namespace RM\Standard\Jwt\Identifier;
 
 use Laminas\Math\Rand;
 
 /**
  * Class LaminasRandGenerator
  *
- * @package RM\Security\Jwt\Identifier
+ * @package RM\Standard\Jwt\Identifier
  * @author  h1karo <h1karo@outlook.com>
  */
 final class LaminasRandGenerator implements IdentifierGeneratorInterface

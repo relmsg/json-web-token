@@ -14,7 +14,7 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Storage;
+namespace RM\Standard\Jwt\Storage;
 
 use InvalidArgumentException;
 use Memcache;
@@ -22,7 +22,7 @@ use Memcache;
 /**
  * Class MemcacheTokenStorage
  *
- * @package RM\Security\JwtBundle\Storage
+ * @package RM\Standard\JwtBundle\Storage
  * @author  h1karo <h1karo@outlook.com>
  */
 class MemcacheTokenStorage implements TokenStorageInterface

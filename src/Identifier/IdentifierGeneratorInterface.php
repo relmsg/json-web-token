@@ -14,12 +14,12 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Identifier;
+namespace RM\Standard\Jwt\Identifier;
 
 /**
  * Interface IdentifierGeneratorInterface
  *
- * @package RM\Security\Jwt\Identifier
+ * @package RM\Standard\Jwt\Identifier
  * @author  h1karo <h1karo@outlook.com>
  */
 interface IdentifierGeneratorInterface

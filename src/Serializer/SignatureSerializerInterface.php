@@ -14,15 +14,15 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Serializer;
+namespace RM\Standard\Jwt\Serializer;
 
-use RM\Security\Jwt\Token\SignatureToken;
-use RM\Security\Jwt\Token\TokenInterface;
+use RM\Standard\Jwt\Token\SignatureToken;
+use RM\Standard\Jwt\Token\TokenInterface;
 
 /**
  * Interface SignatureSerializerInterface
  *
- * @package RM\Security\Jwt\Serializer
+ * @package RM\Standard\Jwt\Serializer
  * @author  h1karo <h1karo@outlook.com>
  */
 interface SignatureSerializerInterface extends SerializerInterface

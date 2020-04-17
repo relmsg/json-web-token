@@ -14,15 +14,15 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Exception;
+namespace RM\Standard\Jwt\Exception;
 
-use RM\Security\Jwt\Handler\ExpirationClaimHandler;
+use RM\Standard\Jwt\Handler\ExpirationClaimHandler;
 use Throwable;
 
 /**
  * Class ExpirationViolationException
  *
- * @package RM\Security\Jwt\Exception
+ * @package RM\Standard\Jwt\Exception
  * @author  h1karo <h1karo@outlook.com>
  */
 class ExpirationViolationException extends ClaimViolationException

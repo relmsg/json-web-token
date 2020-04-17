@@ -14,12 +14,12 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Tests\Storage;
+namespace RM\Standard\Jwt\Tests\Storage;
 
 use Laminas\Math\Rand;
 use PHPUnit\Framework\TestCase;
-use RM\Security\Jwt\Storage\RedisTokenStorage;
-use RM\Security\Jwt\Storage\TokenStorageInterface;
+use RM\Standard\Jwt\Storage\RedisTokenStorage;
+use RM\Standard\Jwt\Storage\TokenStorageInterface;
 
 class RedisTokenStorageTest extends TestCase
 {

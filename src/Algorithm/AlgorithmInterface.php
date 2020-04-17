@@ -14,12 +14,12 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Algorithm;
+namespace RM\Standard\Jwt\Algorithm;
 
 /**
  * Interface AlgorithmInterface
  *
- * @package RM\Security\Jwt\Algorithm
+ * @package RM\Standard\Jwt\Algorithm
  * @author  h1karo <h1karo@outlook.com>
  */
 interface AlgorithmInterface

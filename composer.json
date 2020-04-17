@@ -44,12 +44,12 @@
     },
     "autoload": {
         "psr-4": {
-            "RM\\Security\\Jwt\\": "src/"
+            "RM\\Standard\\Jwt\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RM\\Security\\Jwt\\Tests\\": "tests/"
+            "RM\\Standard\\Jwt\\Tests\\": "tests/"
         }
     }
 }

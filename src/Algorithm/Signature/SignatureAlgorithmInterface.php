@@ -14,15 +14,15 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Algorithm\Signature;
+namespace RM\Standard\Jwt\Algorithm\Signature;
 
-use RM\Security\Jwt\Algorithm\AlgorithmInterface;
-use RM\Security\Jwt\Key\KeyInterface;
+use RM\Standard\Jwt\Algorithm\AlgorithmInterface;
+use RM\Standard\Jwt\Key\KeyInterface;
 
 /**
  * Interface SignatureAlgorithmInterface implements Json Web Token standard for signatures (RFC 7618, section 3)
  *
- * @package RM\Security\Jwt\Algorithm\Signature
+ * @package RM\Standard\Jwt\Algorithm\Signature
  * @author  h1karo <h1karo@outlook.com>
  * @see     https://tools.ietf.org/html/rfc7518
  */

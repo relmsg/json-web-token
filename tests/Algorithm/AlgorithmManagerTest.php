@@ -14,16 +14,16 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Tests\Algorithm;
+namespace RM\Standard\Jwt\Tests\Algorithm;
 
 use PHPUnit\Framework\TestCase;
-use RM\Security\Jwt\Algorithm\AlgorithmInterface;
-use RM\Security\Jwt\Algorithm\AlgorithmManager;
-use RM\Security\Jwt\Algorithm\Signature\HS256;
-use RM\Security\Jwt\Algorithm\Signature\HS512;
-use RM\Security\Jwt\Algorithm\Signature\Keccak256;
-use RM\Security\Jwt\Algorithm\Signature\Keccak512;
-use RM\Security\Jwt\Exception\AlgorithmNotFoundException;
+use RM\Standard\Jwt\Algorithm\AlgorithmInterface;
+use RM\Standard\Jwt\Algorithm\AlgorithmManager;
+use RM\Standard\Jwt\Algorithm\Signature\HS256;
+use RM\Standard\Jwt\Algorithm\Signature\HS512;
+use RM\Standard\Jwt\Algorithm\Signature\Keccak256;
+use RM\Standard\Jwt\Algorithm\Signature\Keccak512;
+use RM\Standard\Jwt\Exception\AlgorithmNotFoundException;
 use stdClass;
 use TypeError;
 

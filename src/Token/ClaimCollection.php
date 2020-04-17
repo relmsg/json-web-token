@@ -14,14 +14,14 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Token;
+namespace RM\Standard\Jwt\Token;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class ClaimCollection
  *
- * @package RM\Security\Jwt\Token
+ * @package RM\Standard\Jwt\Token
  * @author  h1karo <h1karo@outlook.com>
  */
 abstract class ClaimCollection extends ArrayCollection

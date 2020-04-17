@@ -14,15 +14,15 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Event;
+namespace RM\Standard\Jwt\Event;
 
-use RM\Security\Jwt\Token\SignatureToken;
+use RM\Standard\Jwt\Token\SignatureToken;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Class AbstractSignatureEvent
  *
- * @package RM\Security\Jwt\Event
+ * @package RM\Standard\Jwt\Event
  * @author  h1karo <h1karo@outlook.com>
  */
 abstract class AbstractSignEvent extends Event

@@ -14,14 +14,14 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Storage;
+namespace RM\Standard\Jwt\Storage;
 
 use Predis\Client;
 
 /**
  * Class RedisTokenStorage
  *
- * @package RM\Security\Jwt\Storage
+ * @package RM\Standard\Jwt\Storage
  * @author  h1karo <h1karo@outlook.com>
  */
 class RedisTokenStorage implements TokenStorageInterface

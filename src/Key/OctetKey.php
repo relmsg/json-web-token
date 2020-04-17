@@ -14,12 +14,12 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Key;
+namespace RM\Standard\Jwt\Key;
 
 /**
  * Class OctetKey
  *
- * @package RM\Security\Jwt\Key
+ * @package RM\Standard\Jwt\Key
  * @author  h1karo <h1karo@outlook.com>
  */
 final class OctetKey extends AbstractKey

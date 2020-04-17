@@ -14,14 +14,14 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Storage;
+namespace RM\Standard\Jwt\Storage;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class RuntimeTokenStorage implement runtime (in-memory) storage
  *
- * @package RM\Security\Jwt\Storage
+ * @package RM\Standard\Jwt\Storage
  * @author  h1karo <h1karo@outlook.com>
  */
 class RuntimeTokenStorage implements TokenStorageInterface

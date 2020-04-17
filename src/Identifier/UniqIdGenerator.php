@@ -14,12 +14,12 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Identifier;
+namespace RM\Standard\Jwt\Identifier;
 
 /**
  * Class UniqIdGenerator provides generation via function { @see uniqid() }.
  *
- * @package RM\Security\Jwt\Identifier
+ * @package RM\Standard\Jwt\Identifier
  * @author  h1karo <h1karo@outlook.com>
  */
 final class UniqIdGenerator implements IdentifierGeneratorInterface

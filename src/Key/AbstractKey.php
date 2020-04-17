@@ -14,14 +14,14 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Key;
+namespace RM\Standard\Jwt\Key;
 
 use InvalidArgumentException;
 
 /**
  * Class AbstractKey
  *
- * @package RM\Security\Jwt\Key
+ * @package RM\Standard\Jwt\Key
  * @author  h1karo <h1karo@outlook.com>
  */
 abstract class AbstractKey implements KeyInterface

@@ -14,15 +14,15 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Handler;
+namespace RM\Standard\Jwt\Handler;
 
-use RM\Security\Jwt\Exception\IssuerViolationException;
-use RM\Security\Jwt\Token\Payload;
+use RM\Standard\Jwt\Exception\IssuerViolationException;
+use RM\Standard\Jwt\Token\Payload;
 
 /**
  * Class IssuedAtClaimHandler
  *
- * @package RM\Security\Jwt\Handler
+ * @package RM\Standard\Jwt\Handler
  * @author  h1karo <h1karo@outlook.com>
  */
 class IssuerClaimHandler extends AbstractClaimHandler

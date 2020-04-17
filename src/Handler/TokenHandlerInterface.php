@@ -14,15 +14,15 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Handler;
+namespace RM\Standard\Jwt\Handler;
 
-use RM\Security\Jwt\Exception\InvalidTokenException;
-use RM\Security\Jwt\Token\TokenInterface;
+use RM\Standard\Jwt\Exception\InvalidTokenException;
+use RM\Standard\Jwt\Token\TokenInterface;
 
 /**
  * Interface ClaimHandlerInterface
  *
- * @package RM\Security\Jwt\Handler
+ * @package RM\Standard\Jwt\Handler
  * @author  h1karo <h1karo@outlook.com>
  */
 interface TokenHandlerInterface

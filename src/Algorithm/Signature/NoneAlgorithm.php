@@ -14,14 +14,14 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Algorithm\Signature;
+namespace RM\Standard\Jwt\Algorithm\Signature;
 
-use RM\Security\Jwt\Key\KeyInterface;
+use RM\Standard\Jwt\Key\KeyInterface;
 
 /**
  * Class NoneAlgorithm
  *
- * @package RM\Security\Jwt\Algorithm\Signature
+ * @package RM\Standard\Jwt\Algorithm\Signature
  * @author  h1karo <h1karo@outlook.com>
  */
 class NoneAlgorithm implements SignatureAlgorithmInterface

@@ -2,9 +2,6 @@
 
 This library implements a series of standards related with JSON Web Token and is used by others Relations Messenger libraries and services like `relmsg/client` and API server.
 
-[![pipeline status](https://gitlab.com/relmsg/json-web-token/badges/release/pipeline.svg)](https://gitlab.com/relmsg/json-web-token/commits/release)
-[![coverage report](https://gitlab.com/relmsg/json-web-token/badges/release/coverage.svg)](https://gitlab.com/relmsg/json-web-token/commits/release)
-
 ## Installation
 
 You will need Composer to install. Run this command:
@@ -15,7 +12,7 @@ You will need Composer to install. Run this command:
 
 ### Algorithms
 
-All tokens and services uses algorithms to sign, verify, encrypt and decrypt the token data. Each algorithm MUST implement `\RM\Security\Jwt\Algorithm\AlgorithmInterface`.
+All tokens and services uses algorithms to sign, verify, encrypt and decrypt the token data. Each algorithm MUST implement `\RM\Standard\Jwt\Algorithm\AlgorithmInterface`.
 
 ### Keys
 
@@ -23,15 +20,15 @@ For now we provides only octet key support. This is a just string which used as 
 
 ### Tokens
 
-To create new token you can use class `\RM\Security\Jwt\Token\SignatureToken` class. Class constructor have 3 arguments: header claims, payload claims and signature. You should pass algorithm name with header claims. Other arguments and claims is optional.
+To create new token you can use class `\RM\Standard\Jwt\Token\SignatureToken` class. Class constructor have 3 arguments: header claims, payload claims and signature. You should pass algorithm name with header claims. Other arguments and claims is optional.
 
 Example:
 ```php
 <?php
 
-use RM\Security\Jwt\Token\Header;
-use RM\Security\Jwt\Token\SignatureToken;
-use RM\Security\Jwt\Algorithm\Signature\Keccak256;
+use RM\Standard\Jwt\Token\Header;
+use RM\Standard\Jwt\Token\SignatureToken;
+use RM\Standard\Jwt\Algorithm\Signature\Keccak256;
 
 // some algorithm
 $algorithm = new Keccak256();
@@ -47,22 +44,22 @@ $token = SignatureToken::createWithAlgorithm($algorithm);
 
 The token has parameters called claim, these are important sensitive data that are needed for authorization and verification. They are divided respectively in the header and in the payload of the token. Header claims are general token data: the signing or encryption algorithm and the type of token. Payload claims contain the data necessary for verification: this is the time of signing the token, the time of its action, who signed it and for whom.
 
-Header claims defined in `\RM\Security\Jwt\Token\Header` class as constants. Payload claim defined in `\RM\Security\Jwt\Token\Payload` class.
+Header claims defined in `\RM\Standard\Jwt\Token\Header` class as constants. Payload claim defined in `\RM\Standard\Jwt\Token\Payload` class.
 
 You can use your custom claims. According to the standard, claim names must be concise enough. We use 3-character names, but there are no restrictions.
 
 
 ### Serialization
 
-Serialization of tokens provided by some services implemented the `\RM\Security\Jwt\Serializer\SerializerInterface` interface.
+Serialization of tokens provided by some services implemented the `\RM\Standard\Jwt\Serializer\SerializerInterface` interface.
 
 Example:
 
 ```php
 <?php
 
-use RM\Security\Jwt\Serializer\SignatureCompactSerializer;
-use RM\Security\Jwt\Token\SignatureToken;
+use RM\Standard\Jwt\Serializer\SignatureCompactSerializer;
+use RM\Standard\Jwt\Token\SignatureToken;
 
 // serialized token
 // {"alg": "HS256","typ": "JWT"} . {"sub": "1234567890","name": "John Doe","iat": 1516239022} . signature
@@ -97,12 +94,12 @@ Example:
 
 use Laminas\Math\Rand;
 use ParagonIE\ConstantTime\Base64UrlSafe;
-use RM\Security\Jwt\Algorithm\AlgorithmManager;
-use RM\Security\Jwt\Algorithm\Signature\Keccak512;
-use RM\Security\Jwt\Key\OctetKey;
-use RM\Security\Jwt\Service\SignatureService;
-use RM\Security\Jwt\Token\Header;
-use RM\Security\Jwt\Token\SignatureToken;
+use RM\Standard\Jwt\Algorithm\AlgorithmManager;
+use RM\Standard\Jwt\Algorithm\Signature\Keccak512;
+use RM\Standard\Jwt\Key\OctetKey;
+use RM\Standard\Jwt\Service\SignatureService;
+use RM\Standard\Jwt\Token\Header;
+use RM\Standard\Jwt\Token\SignatureToken;
 
 // some algorithm
 $algorithm = new Keccak512();

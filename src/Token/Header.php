@@ -14,16 +14,16 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Token;
+namespace RM\Standard\Jwt\Token;
 
 use InvalidArgumentException;
-use RM\Security\Jwt\Algorithm\AlgorithmInterface;
-use RM\Security\Jwt\Algorithm\AlgorithmManager;
+use RM\Standard\Jwt\Algorithm\AlgorithmInterface;
+use RM\Standard\Jwt\Algorithm\AlgorithmManager;
 
 /**
  * Class Header
  *
- * @package RM\Security\Jwt\Token
+ * @package RM\Standard\Jwt\Token
  * @author  h1karo <h1karo@outlook.com>
  */
 class Header extends ClaimCollection

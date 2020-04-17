@@ -14,15 +14,15 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Security\Jwt\Tests\Serializer;
+namespace RM\Standard\Jwt\Tests\Serializer;
 
 use Generator;
 use PHPUnit\Framework\TestCase;
-use RM\Security\Jwt\Algorithm\Signature\Keccak512;
-use RM\Security\Jwt\Exception\InvalidTokenException;
-use RM\Security\Jwt\Serializer\SignatureCompactSerializer;
-use RM\Security\Jwt\Token\SignatureToken;
-use RM\Security\Jwt\Token\TokenInterface;
+use RM\Standard\Jwt\Algorithm\Signature\Keccak512;
+use RM\Standard\Jwt\Exception\InvalidTokenException;
+use RM\Standard\Jwt\Serializer\SignatureCompactSerializer;
+use RM\Standard\Jwt\Token\SignatureToken;
+use RM\Standard\Jwt\Token\TokenInterface;
 use stdClass;
 
 class SignatureCompactSerializerTest extends TestCase
