@@ -3,7 +3,7 @@
  * This file is a part of Relations Messenger Json Web Token Implementation.
  * This package is a part of Relations Messenger.
  *
- * @link      https://gitlab.com/relmsg/json-web-token
+ * @link      https://github.com/relmsg/json-web-token
  * @link      https://dev.relmsg.ru/packages/json-web-token
  * @copyright Copyright (c) 2018-2020 Relations Messenger
  * @author    h1karo <h1karo@outlook.com>
