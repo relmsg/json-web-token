@@ -1,12 +1,12 @@
 <?php
-/**
+/*
  * This file is a part of Relations Messenger Json Web Token Implementation.
  * This package is a part of Relations Messenger.
  *
  * @link      https://github.com/relmsg/json-web-token
  * @link      https://dev.relmsg.ru/packages/json-web-token
  * @copyright Copyright (c) 2018-2020 Relations Messenger
- * @author    h1karo <h1karo@outlook.com>
+ * @author    Oleg Kozlov <h1karo@relmsg.ru>
  * @license   Apache License 2.0
  * @license   https://legal.relmsg.ru/licenses/json-web-token
  *
@@ -37,8 +37,7 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 /**
  * Class SignatureService
  *
- * @package RM\Standard\Jwt\Service
- * @author  h1karo <h1karo@outlook.com>
+ * @author Oleg Kozlov <h1karo@relmsg.ru>
  */
 class SignatureService implements SignatureServiceInterface
 {
