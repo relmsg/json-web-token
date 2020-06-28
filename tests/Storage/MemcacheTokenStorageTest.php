@@ -28,9 +28,10 @@ class MemcacheTokenStorageTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        $memcachedHost = defined('MEMCACHED_HOST') ? MEMCACHED_HOST : '127.0.0.1';
+        $host = $_ENV['MEMCACHED_HOST'];
+        $port = $_ENV['MEMCACHED_PORT'];
 
-        self::$storage = new MemcacheTokenStorage($memcachedHost);
+        self::$storage = new MemcacheTokenStorage($host, $port);
         self::$someTokenId = Rand::getString(256);
     }
 
