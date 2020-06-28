@@ -42,3 +42,9 @@ jobs:
                     REDIS_PORT: 6379
                     MEMCACHED_HOST: localhost
                     MEMCACHED_PORT: 11211
+
+            -   name: PHP Security Checker
+                uses: StephaneBour/actions-php-security-checker@1.0
+
+            -   name: Psalm
+                uses: docker://vimeo/psalm-github-actions
