@@ -31,19 +31,18 @@
         "laminas/laminas-math": "^3.2"
     },
     "require-dev": {
-        "predis/predis": "^1.1",
         "ext-memcache": "*",
-        
-        "phpunit/phpunit": "^8.5.1",
-        "symfony/phpunit-bridge": "^4.4|^5.0",
+        "predis/predis": "^1.1",
         "symfony/stopwatch": "^4.4|^5.0",
+        
+        "phpunit/phpunit": "^9.2.5",
         
         "ramsey/uuid": "^3.9.2",
         "bentools/cartesian-product": "^1.3"
     },
     "suggest": {
-        "ext-memcache": "Allow to use memcache token storage",
-        "predis/predis": "Allow to use redis token storage",
+        "ext-memcache": "Allows to use memcache token storage",
+        "predis/predis": "Allows to use redis token storage",
         "ramsey/uuid": "Allow to use UUID identifier generators"
     },
     "autoload": {
