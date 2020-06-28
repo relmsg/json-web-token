@@ -31,11 +31,11 @@
         "laminas/laminas-math": "^3.2"
     },
     "require-dev": {
-        "predis/predis": "^1.1",
         "ext-memcache": "*",
+        "predis/predis": "^1.1",
+        "symfony/stopwatch": "^4.4|^5.0",
         
         "phpunit/phpunit": "^9.2.5",
-        "symfony/stopwatch": "^4.4|^5.0",
         
         "ramsey/uuid": "^3.9.2",
         "bentools/cartesian-product": "^1.3"
