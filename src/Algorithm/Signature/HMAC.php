@@ -19,10 +19,19 @@ namespace RM\Standard\Jwt\Algorithm\Signature;
 use InvalidArgumentException;
 use RM\Standard\Jwt\Key\KeyInterface;
 
+trigger_deprecation(
+    'relmsg/json-web-token',
+    '1.4',
+    'Class "%s" moved to "%s" package and will be removed in 2.0.',
+    HMAC::class,
+    'relmsg/json-web-signature-hmac'
+);
+
 /**
  * Class HMAC
  *
  * @author Oleg Kozlov <h1karo@relmsg.ru>
+ * @deprecated since relmsg/json-web-token 1.4: Moved to "relmsg/json-web-signature-hmac" package and will be removed in 2.0.
  */
 abstract class HMAC implements SignatureAlgorithmInterface
 {

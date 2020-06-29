@@ -16,10 +16,19 @@
 
 namespace RM\Standard\Jwt\Algorithm\Signature;
 
+trigger_deprecation(
+    'relmsg/json-web-token',
+    '1.4',
+    'Class "%s" moved to "%s" package and will be removed in 2.0. Use "%s" instead.',
+    HS512::class,
+    'relmsg/json-web-signature-hmac'
+);
+
 /**
- * Class HS256
+ * Class HS512
  *
  * @author Oleg Kozlov <h1karo@relmsg.ru>
+ * @deprecated since relmsg/json-web-token 1.4: Moved to "relmsg/json-web-signature-hmac" package and will be removed in 2.0.
  */
 class HS512 extends HMAC
 {
