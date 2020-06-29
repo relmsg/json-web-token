@@ -24,6 +24,7 @@
         
         "psr/event-dispatcher": "^1.0.0",
         "symfony/event-dispatcher": "^4.4|^5.0",
+        "symfony/deprecation-contracts": "^2.1.2",
         "webmozart/json": "^1.2.2",
         "monolog/monolog": "^2.0.2",
         "doctrine/collections": "^1.6.4",
