@@ -16,18 +16,44 @@
 
 namespace RM\Standard\Jwt\Algorithm\Signature;
 
-trigger_deprecation(
-    'relmsg/json-web-token',
-    '1.4',
-    'Will be removed in 2.0. Using "%s" is deprecated, use "%s" instead.',
-    NoneAlgorithm::class,
-    None::class
-);
+use RM\Standard\Jwt\Key\KeyInterface;
 
 /**
- * Class NoneAlgorithm
+ * Class None
  *
  * @author Oleg Kozlov <h1karo@relmsg.ru>
- * @deprecated since 1.4, to be removed in 2.0. Use {@see None} instead.
  */
-class NoneAlgorithm extends None {}
+class None implements SignatureAlgorithmInterface
+{
+    /**
+     * @inheritDoc
+     */
+    public function name(): string
+    {
+        return 'none';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function allowedKeyTypes(): array
+    {
+        return ['none'];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function hash(KeyInterface $key, string $input): string
+    {
+        return '';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function verify(KeyInterface $key, string $input, string $hash): bool
+    {
+        return $this->hash($key, $input) === $hash;
+    }
+}
