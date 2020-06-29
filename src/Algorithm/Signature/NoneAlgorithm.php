@@ -38,7 +38,7 @@ class NoneAlgorithm implements SignatureAlgorithmInterface
      */
     public function allowedKeyTypes(): array
     {
-        return ['oct'];
+        return ['none'];
     }
 
     /**
