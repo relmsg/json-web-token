@@ -42,6 +42,8 @@
         "bentools/cartesian-product": "^1.3"
     },
     "suggest": {
+        "relmsg/json-web-signature-hmac": "Allows use the HMAC algorithms for the token signature.",
+        
         "ext-memcache": "Allows to use memcache token storage",
         "predis/predis": "Allows to use redis token storage",
         "ramsey/uuid": "Allow to use UUID identifier generators"
